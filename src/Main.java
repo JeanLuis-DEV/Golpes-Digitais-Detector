@@ -1,4 +1,6 @@
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -10,23 +12,38 @@ public class Main {
             return null;
         }
 
-        // 1. Decompõe os caracteres acentuados em caractere base + acento
+        // 1. Remove acentos e caracteres não alfanuméricos (mas mantém espaços)
         String normalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
-
-        // 2. Expressão regular:
-        // \\p{InCombiningDiacriticalMarks} remove os acentos (diacríticos)
-        // [^\p{Alnum}\s] remove tudo que não é letra
         Pattern padrao = Pattern.compile("\\p{InCombiningDiacriticalMarks}|[^\\p{Alnum}\\s]");
+        String semAcentos = padrao.matcher(normalizado).replaceAll("").toLowerCase();
 
-        return padrao.matcher(normalizado).replaceAll("");
+        // 2. Remove apenas linhas vazias (mantendo espaços dentro das frases)
+        return semAcentos.replaceAll("(?m)^[ \t]*\r?\n", "");
     }
 
         public static void main(String[] args) {
             System.out.println("Bem vindo ao Detector de Golpes Digitais!");
             Scanner sc = new Scanner(System.in);
-            System.out.println("Digite a mensagem para verificar: ");
-            String mensagem = sc.nextLine();
-            System.out.println(limparTexto(mensagem));
+            List<String> linhas = new ArrayList<>();
+
+            System.out.println("Digite seu texto para verificar (digite apenas FIM para encerrar):");
+
+            while (true) {
+                String linha = sc.nextLine(); // lê inclusive linhas em branco
+                if (linha.equals("FIM")) { // critério de parada
+                    break;
+                }
+                linhas.add(linha);
+            }
+
+            sc.close();
+            String mensagem = limparTexto(String.join("\n", linhas));
+            System.out.println(mensagem);
+
+            String[] palavrasTexto = mensagem.split(" ");
+            for(String palavra : palavrasTexto) {
+                System.out.println(palavra);
+            }
         }
     }
 
