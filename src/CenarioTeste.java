@@ -12,6 +12,13 @@ public class CenarioTeste {
                 "BAIXO"
         );
 
+        executarTeste(
+                detector,
+                "Mensagem segura com endereço de e-mail",
+                "Olá, meu e-mail para contato é atendimento@gmail.com",
+                "BAIXO"
+        );
+
         // Demais cenários: diferentes exemplos de mensagens suspeitas.
         executarTeste(
                 detector,
@@ -82,6 +89,14 @@ public class CenarioTeste {
                 detector,
                 "Prêmio em domínio estrangeiro",
                 "Última chance! Você ganhou um prêmio em premiointernacional.co",
+                "ALTO"
+        );
+
+        executarTeste(
+                detector,
+                "Mensagem com acentos usados para esconder o golpe",
+                "Ólá, précisó de ajúdá, me mándá úm píx, "
+                        + "mándá párá a cóntá dé úm ámígó píx@gmáíl.cóm",
                 "ALTO"
         );
 
