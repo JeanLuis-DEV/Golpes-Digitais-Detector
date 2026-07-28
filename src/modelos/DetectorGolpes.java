@@ -80,17 +80,6 @@ public class DetectorGolpes extends MensagensGolpes{
         return new ResultadoAnalise(nivelRisco, pontuacao, motivos);
     }
 
-    // Procura na mensagem pelo menos um dos termos recebidos.
-    private boolean contemAlgumTermo(String mensagem, String[] termos) {
-        for (String termo : termos) {
-            if (mensagem.contains(termo)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // Converte o texto para minúsculas, separa os acentos e depois os remove.
     private String normalizarTexto(String texto) {
         String textoComAcentosSeparados = Normalizer.normalize(
