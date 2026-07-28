@@ -9,6 +9,7 @@ public class DetectorGolpes extends MensagensGolpes{
     private static final int LIMITE_RISCO_MEDIO = 4;
     private static final int LIMITE_RISCO_ALTO = 7;
     ContemTexto contem = new ContemTexto();
+    NormalizadorTexto normalizador = new NormalizadorTexto();
     // Analisa uma mensagem e devolve sua pontuação, classificação e motivos.
     public ResultadoAnalise analisar(String mensagem) {
         // Não é possível analisar um texto nulo ou vazio.
@@ -17,7 +18,7 @@ public class DetectorGolpes extends MensagensGolpes{
         }
 
         // Letras minúsculas e sem acentos evitam que erros de acentuação escondam os termos.
-        String mensagemNormalizada = normalizarTexto(mensagem);
+        String mensagemNormalizada = normalizador.normalizarTexto(mensagem);
         int pontuacao = 0;
         ArrayList<String> motivos = new ArrayList<>();
 
@@ -80,15 +81,6 @@ public class DetectorGolpes extends MensagensGolpes{
         return new ResultadoAnalise(nivelRisco, pontuacao, motivos);
     }
 
-    // Converte o texto para minúsculas, separa os acentos e depois os remove.
-    private String normalizarTexto(String texto) {
-        String textoComAcentosSeparados = Normalizer.normalize(
-                texto.toLowerCase(),
-                Normalizer.Form.NFD
-        );
-
-        return textoComAcentosSeparados.replaceAll("\\p{M}", "");
-    }
 
     // Classifica o risco de acordo com os limites definidos no início da classe.
     private String classificarRisco(int pontuacao) {
