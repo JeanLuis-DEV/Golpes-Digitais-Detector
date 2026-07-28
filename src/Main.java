@@ -1,51 +1,49 @@
-import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
-
-
+// Classe principal: inicia o programa e conversa com o usuário pelo console.
 public class Main {
-    public static String limparTexto(String texto) {
-        if (texto == null) {
-            return null;
+    public static void main(String[] args) {
+        // O Scanner lê o texto digitado. O detector analisa esse texto.
+        Scanner scanner = new Scanner(System.in);
+        DetectorGolpes detector = new DetectorGolpes();
+
+        // Exibe o título e solicita a mensagem.
+        System.out.println("=== Detector de Golpes Digitais ===");
+        System.out.println("Digite a mensagem que deseja analisar:");
+        String mensagem = scanner.nextLine();
+
+        // Impede que uma mensagem vazia seja enviada para análise.
+        if (mensagem.trim().isEmpty()) {
+            System.out.println("A mensagem não pode estar vazia.");
+            scanner.close();
+            return;
         }
 
-        // 1. Remove acentos e caracteres não alfanuméricos (mas mantém espaços)
-        String normalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
-        Pattern padrao = Pattern.compile("\\p{InCombiningDiacriticalMarks}|[^\\p{Alnum}\\s]");
-        String semAcentos = padrao.matcher(normalizado).replaceAll("").toLowerCase();
+        // Envia a mensagem para o detector e recebe o resultado.
+        ResultadoAnalise resultado = detector.analisar(mensagem);
+        ArrayList<String> motivos = resultado.getMotivos();
 
-        // 2. Remove apenas linhas vazias (mantendo espaços dentro das frases)
-        return semAcentos.replaceAll("(?m)^[ \t]*\r?\n", "");
-    }
+        // Mostra a classificação e a pontuação calculadas.
+        System.out.println();
+        System.out.println("Nível de risco: " + resultado.getNivelRisco());
+        System.out.println("Pontuação: " + resultado.getPontuacao());
 
-        public static void main(String[] args) {
-            System.out.println("Bem vindo ao Detector de Golpes Digitais!");
-            Scanner sc = new Scanner(System.in);
-            List<String> linhas = new ArrayList<>();
+        // Mostra os sinais encontrados ou informa que nenhum sinal foi localizado.
+        if (motivos.isEmpty()) {
+            System.out.println("Nenhum sinal de golpe foi encontrado.");
+        } else {
+            System.out.println("Sinais encontrados:");
 
-            System.out.println("Digite seu texto para verificar (digite apenas FIM para encerrar):");
-
-            while (true) {
-                String linha = sc.nextLine(); // lê inclusive linhas em branco
-                if (linha.equals("FIM")) { // critério de parada
-                    break;
-                }
-                linhas.add(linha);
-            }
-
-            sc.close();
-            String mensagem = limparTexto(String.join("\n", linhas));
-            System.out.println(mensagem);
-
-            String[] palavrasTexto = mensagem.split(" ");
-            for(String palavra : palavrasTexto) {
-                System.out.println(palavra);
+            for (String motivo : motivos) {
+                System.out.println("- " + motivo);
             }
         }
+
+        // Fecha o leitor depois que ele não é mais necessário.
+        scanner.close();
     }
+}
 
 
 
