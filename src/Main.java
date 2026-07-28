@@ -1,17 +1,34 @@
+import modelos.DetectorGolpes;
+import modelos.ResultadoAnalise;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // Classe principal: inicia o programa e conversa com o usuário pelo console.
 public class Main {
     public static void main(String[] args) {
-        // O Scanner lê o texto digitado. O detector analisa esse texto.
+
+        System.out.println("Bem vindo ao Detector de Golpes Digitais!");
         Scanner scanner = new Scanner(System.in);
+        List<String> linhas = new ArrayList<>();
+
+        System.out.println("Digite seu texto para verificar (digite apenas FIM para enviar a mensagem):");
+
+        while (true) {
+            String linha = scanner.nextLine(); // lê inclusive linhas em branco
+            if (linha.equals("FIM")) { // critério de parada
+                break;
+            }
+            linhas.add(linha);
+        }
+
+        String mensagem = String.join("\n", linhas);
+        System.out.println(mensagem);
+
+        // O Scanner lê o texto digitado. O detector analisa esse texto.
         DetectorGolpes detector = new DetectorGolpes();
 
-        // Exibe o título e solicita a mensagem.
-        System.out.println("=== Detector de Golpes Digitais ===");
-        System.out.println("Digite a mensagem que deseja analisar:");
-        String mensagem = scanner.nextLine();
 
         // Impede que uma mensagem vazia seja enviada para análise.
         if (mensagem.trim().isEmpty()) {

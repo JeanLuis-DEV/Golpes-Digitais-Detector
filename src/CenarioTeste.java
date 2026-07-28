@@ -1,3 +1,6 @@
+import modelos.DetectorGolpes;
+import modelos.ResultadoAnalise;
+
 // Executa cenários conhecidos para conferir se as regras continuam funcionando.
 public class CenarioTeste {
     public static void main(String[] args) {
