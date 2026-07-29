@@ -1,194 +1,159 @@
-import java.text.Normalizer;
 import java.util.ArrayList;
 
-// Contém todas as regras usadas para analisar uma mensagem.
+// Coordena a análise da mensagem e aplica as regras de pontuação.
 public class DetectorGolpes {
-    // Limites usados para transformar a pontuação em nível de risco.
-    private static final int LIMITE_RISCO_MEDIO = 4;
-    private static final int LIMITE_RISCO_ALTO = 7;
-
-    // Cada lista reúne palavras ou trechos ligados a um tipo de golpe.
-    private static final String[] TERMOS_URGENCIA = {
-            "urgente", "agora", "imediatamente", "ultima chance", "na hora"
-    };
-
-    private static final String[] TERMOS_PREMIO = {
-            "premio", "ganhou", "ganhar", "ganhe", "sorteado", "dinheiro facil"
-    };
-
-    private static final String[] TERMOS_DADOS_PESSOAIS = {
-            "senha", "cpf", "dados bancarios", "codigo de verificacao"
-    };
-
-    private static final String[] INDICIOS_DE_LINK = {
-            "http://", "https://", "www.", "bit.ly", "link:", "link."
-    };
-
-    private static final String[] DOMINIOS_DE_LINK = {
-            ".com", ".org", ".net", ".br", ".io", ".co", ".uk", ".eu",
-            ".us", ".ca", ".de", ".fr", ".es", ".pt", ".it", ".nl",
-            ".ru", ".cn", ".jp", ".in", ".au", ".mx", ".ar",
-            ".xyz", ".top", ".site", ".online", ".info", ".biz", ".club",
-            ".shop", ".live", ".click", ".link", ".me", ".tv", ".cc", ".tk"
-    };
-
-    private static final String[] PEDIDOS_DE_ACAO = {
-            "vote em mim", "vote neste", "clique para votar", "cadastre-se"
-    };
-
-    private static final String[] ARQUIVOS_PERIGOSOS = {
-            ".exe", ".bat", ".cmd", ".scr", ".msi", ".jar", ".apk"
-    };
-
-    private static final String[] TERMOS_TRANSFERENCIA = {
-            "pix", "transferencia", "deposito"
-    };
-
-    private static final String[] PEDIDOS_DE_DINHEIRO = {
-            "dinheiro emprestado", "preciso de dinheiro", "emprestar", "empresta",
-            "manda dinheiro", "mande dinheiro", "mandar um pix", "manda um pix",
-            "fazer um pix", "faz um pix", "depois eu te pago"
-    };
-
-    private static final String[] PAGAMENTO_PARA_TERCEIROS = {
-            "pix do meu amigo", "pix de um amigo", "conta do meu amigo", "conta de um amigo",
-            "conta de outra pessoa",
-            "enviar direto pro", "enviar direto para", "mandar direto pro", "mandar direto para",
-            "manda pro", "manda para", "mandar para", "direto para a loja"
-    };
+    private final NormalizadorMensagem normalizador = new NormalizadorMensagem();
+    private final AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
+    private final ClassificadorRisco classificadorRisco = new ClassificadorRisco();
 
     // Analisa uma mensagem e devolve sua pontuação, classificação e motivos.
     public ResultadoAnalise analisar(String mensagem) {
-        // Não é possível analisar um texto nulo ou vazio.
-        if (mensagem == null || mensagem.trim().isEmpty()) {
-            throw new IllegalArgumentException("A mensagem não pode estar vazia.");
-        }
+        validarMensagem(mensagem);
 
-        // Letras minúsculas e sem acentos evitam que erros de acentuação escondam os termos.
-        String mensagemNormalizada = normalizarTexto(mensagem);
+        String mensagemNormalizada = normalizador.normalizar(mensagem);
         int pontuacao = 0;
         ArrayList<String> motivos = new ArrayList<>();
 
-        // A urgência é usada para fazer a pessoa agir sem pensar.
-        if (contemAlgumTermo(mensagemNormalizada, TERMOS_URGENCIA)) {
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_URGENCIA
+        )) {
             pontuacao += 2;
             motivos.add("A mensagem tenta criar urgência.");
         }
 
-        // Promessas de prêmio ou dinheiro fácil também são sinais comuns.
-        if (contemAlgumTermo(mensagemNormalizada, TERMOS_PREMIO)) {
+        boolean contemPremio = analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_PREMIO
+        );
+
+        if (contemPremio) {
             pontuacao += 2;
             motivos.add("A mensagem oferece prêmio ou dinheiro fácil.");
         }
 
-        // Pedidos de dados pessoais recebem uma pontuação maior.
-        if (contemAlgumTermo(mensagemNormalizada, TERMOS_DADOS_PESSOAIS)) {
-            pontuacao += 3;
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_DADOS_PESSOAIS
+        )) {
+            pontuacao += 4;
             motivos.add("A mensagem solicita dados pessoais ou bancários.");
         }
 
-        // Um endereço de site pode aparecer com ou sem http.
-        if (contemLink(mensagemNormalizada)) {
+        boolean contemLink = analisadorConteudo.contemLink(mensagemNormalizada);
+
+        if (contemLink) {
             pontuacao += 3;
             motivos.add("A mensagem contém um link.");
         }
 
-        // A mensagem pode tentar convencer a vítima a clicar, votar ou se cadastrar.
-        if (contemAlgumTermo(mensagemNormalizada, PEDIDOS_DE_ACAO)) {
-            pontuacao += 2;
-            motivos.add("A mensagem pede uma ação em troca de uma vantagem.");
+        boolean contemPromessaDinheiro = contemPremio
+                || analisadorConteudo.contemAlgumTermo(
+                        mensagemNormalizada,
+                        CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO
+                );
+
+        if (contemPromessaDinheiro && contemLink) {
+            pontuacao += 4;
+            motivos.add("A mensagem combina um link com uma promessa de dinheiro.");
         }
 
-        // Arquivos executáveis já são suficientes para indicar risco alto.
-        if (contemAlgumTermo(mensagemNormalizada, ARQUIVOS_PERIGOSOS)) {
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.PEDIDOS_DE_ACAO
+        )) {
+            pontuacao += 2;
+            motivos.add("A mensagem solicita que a pessoa realize uma ação.");
+        }
+
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.ARQUIVOS_PERIGOSOS
+        )) {
             pontuacao += 7;
             motivos.add("A mensagem contém um arquivo que pode executar programas maliciosos.");
         }
 
-        // Transferências de dinheiro exigem atenção.
-        if (contemAlgumTermo(mensagemNormalizada, TERMOS_TRANSFERENCIA)) {
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_TRANSFERENCIA
+        )) {
             pontuacao += 3;
             motivos.add("A mensagem solicita uma transferência de dinheiro.");
         }
 
-        // O pedido de dinheiro aumenta o risco quando aparece com outros sinais.
-        if (contemAlgumTermo(mensagemNormalizada, PEDIDOS_DE_DINHEIRO)) {
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_MUDANCA_CONTATO
+        )) {
             pontuacao += 2;
+            motivos.add("A mensagem informa uma mudança inesperada de contato.");
+        }
+
+        // Um pedido explícito de dinheiro já exige cautela mesmo sem outros sinais.
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO
+        ) || analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
+            pontuacao += 4;
             motivos.add("A mensagem contém um pedido de dinheiro.");
         }
 
-        // Enviar o pagamento para outra pessoa é um comportamento suspeito.
-        if (contemAlgumTermo(mensagemNormalizada, PAGAMENTO_PARA_TERCEIROS)) {
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.PAGAMENTO_PARA_TERCEIROS
+        )) {
             pontuacao += 2;
             motivos.add("O pagamento solicitado seria enviado para outra pessoa.");
         }
 
-        // Converte a pontuação em nível de risco e reúne todos os dados.
-        String nivelRisco = classificarRisco(pontuacao);
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_AMEACA_OU_BLOQUEIO
+        )) {
+            pontuacao += 4;
+            motivos.add("A mensagem ameaça bloquear ou suspender um serviço.");
+        }
+
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_FALSA_INSTITUICAO
+        )) {
+            pontuacao += 2;
+            motivos.add("A mensagem tenta se apresentar como uma instituição ou suporte.");
+        }
+
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_TAXA_ANTECIPADA
+        )) {
+            pontuacao += 4;
+            motivos.add("A mensagem cobra um valor antecipado para liberar algo.");
+        }
+
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_INVESTIMENTO_SUSPEITO
+        )) {
+            pontuacao += 4;
+            motivos.add("A mensagem promete retorno financeiro fácil ou garantido.");
+        }
+
+        if (analisadorConteudo.contemAlgumTermo(
+                mensagemNormalizada,
+                CatalogoTermosGolpe.TERMOS_ACESSO_REMOTO
+        )) {
+            pontuacao += 7;
+            motivos.add("A mensagem solicita acesso remoto ao dispositivo.");
+        }
+
+        String nivelRisco = classificadorRisco.classificar(pontuacao);
         return new ResultadoAnalise(nivelRisco, pontuacao, motivos);
     }
 
-    // Procura na mensagem pelo menos um dos termos recebidos.
-    private boolean contemAlgumTermo(String mensagem, String[] termos) {
-        for (String termo : termos) {
-            if (mensagem.contains(termo)) {
-                return true;
-            }
+    private void validarMensagem(String mensagem) {
+        if (mensagem == null || mensagem.trim().isEmpty()) {
+            throw new IllegalArgumentException("A mensagem não pode estar vazia.");
         }
-
-        return false;
-    }
-
-    // Procura indicações de link e ignora endereços de e-mail.
-    private boolean contemLink(String mensagem) {
-        if (contemAlgumTermo(mensagem, INDICIOS_DE_LINK)) {
-            return true;
-        }
-
-        String[] palavras = mensagem.split("\\s+");
-
-        for (String palavra : palavras) {
-            if (palavra.contains("@")) {
-                continue;
-            }
-
-            String palavraSemPontuacao = palavra
-                    .replace(",", "")
-                    .replace(";", "")
-                    .replace("!", "")
-                    .replace("?", "");
-
-            for (String dominio : DOMINIOS_DE_LINK) {
-                if (palavraSemPontuacao.endsWith(dominio)
-                        || palavraSemPontuacao.contains(dominio + "/")) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // Converte o texto para minúsculas, separa os acentos e depois os remove.
-    private String normalizarTexto(String texto) {
-        String textoComAcentosSeparados = Normalizer.normalize(
-                texto.toLowerCase(),
-                Normalizer.Form.NFD
-        );
-
-        return textoComAcentosSeparados.replaceAll("\\p{M}", "");
-    }
-
-    // Classifica o risco de acordo com os limites definidos no início da classe.
-    private String classificarRisco(int pontuacao) {
-        if (pontuacao >= LIMITE_RISCO_ALTO) {
-            return "ALTO";
-        }
-
-        if (pontuacao >= LIMITE_RISCO_MEDIO) {
-            return "MÉDIO";
-        }
-
-        return "BAIXO";
     }
 }
