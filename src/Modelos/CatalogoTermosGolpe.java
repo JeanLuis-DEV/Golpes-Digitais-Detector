@@ -1,3 +1,5 @@
+package Modelos;
+
 import java.util.List;
 
 // Centraliza os termos e padrões consultados durante a análise.
@@ -67,7 +69,7 @@ public final class CatalogoTermosGolpe {
             "vote em mim", "vote neste", "clique para votar", "cadastre-se",
             "retorne nesse contato", "retorne neste contato", "retorne o contato",
             "entre em contato", "responda essa mensagem", "responda esta mensagem",
-            "chame no numero", "ligue para", "me chama", "para resgatar",
+            "chame no numero", "ligue para", "ligue", "me chama", "para resgatar",
             "pra resgatar", "resgate agora", "da um alo", "chama no zap",
             "me da um toque", "pra pegar", "para pegar",
             "confirme agora", "confirme seus dados", "confirme sua conta",

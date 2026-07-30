@@ -1,3 +1,5 @@
+package Modelos;
+
 import java.util.Scanner;
 
 // Lê mensagens com uma ou várias linhas pelo terminal.

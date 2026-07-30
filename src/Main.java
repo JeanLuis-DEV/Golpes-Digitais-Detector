@@ -1,3 +1,5 @@
+import Modelos.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,11 +11,9 @@ public class Main {
         LeitorMensagemConsole leitorMensagem = new LeitorMensagemConsole();
         InterfaceConsole interfaceConsole = new InterfaceConsole();
         DetectorGolpes detector = new DetectorGolpes();
-
         // Exibe a apresentação e solicita a mensagem.
         interfaceConsole.exibirPainelInicial();
         String mensagem = leitorMensagem.ler(scanner);
-
         // Impede que uma mensagem vazia seja enviada para análise.
         if (mensagem.trim().isEmpty()) {
             System.out.println("A mensagem não pode estar vazia.");

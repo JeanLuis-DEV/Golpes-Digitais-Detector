@@ -1,4 +1,7 @@
+package Modelos;
+
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 // Coordena a análise da mensagem e aplica as regras de pontuação.
 public class DetectorGolpes {
@@ -147,6 +150,12 @@ public class DetectorGolpes {
             motivos.add("A mensagem solicita acesso remoto ao dispositivo.");
         }
 
+
+        if (analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
+            pontuacao += 2;
+            motivos.add("A mensagem menciona um valor em dinheiro.");
+        }
+
         String nivelRisco = classificadorRisco.classificar(pontuacao);
         return new ResultadoAnalise(nivelRisco, pontuacao, motivos);
     }
@@ -156,4 +165,5 @@ public class DetectorGolpes {
             throw new IllegalArgumentException("A mensagem não pode estar vazia.");
         }
     }
+
 }

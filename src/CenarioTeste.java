@@ -1,3 +1,7 @@
+import Modelos.DetectorGolpes;
+import Modelos.LeitorMensagemConsole;
+import Modelos.ResultadoAnalise;
+
 import java.util.Scanner;
 
 // Executa cenários conhecidos para conferir se as regras continuam funcionando.
