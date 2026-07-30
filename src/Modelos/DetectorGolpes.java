@@ -1,7 +1,6 @@
 package Modelos;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 // Coordena a análise da mensagem e aplica as regras de pontuação.
 public class DetectorGolpes {
@@ -55,6 +54,7 @@ public class DetectorGolpes {
                         mensagemNormalizada,
                         CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO
                 );
+        boolean declaracaoEnvioLegitimo = analisadorConteudo.contemDeclaracaoEnvioLegitimo(mensagemNormalizada);
 
         if (contemPromessaDinheiro && contemLink) {
             pontuacao += 4;
@@ -77,7 +77,7 @@ public class DetectorGolpes {
             motivos.add("A mensagem contém um arquivo que pode executar programas maliciosos.");
         }
 
-        if (analisadorConteudo.contemAlgumTermo(
+        if (!declaracaoEnvioLegitimo && analisadorConteudo.contemAlgumTermo(
                 mensagemNormalizada,
                 CatalogoTermosGolpe.TERMOS_TRANSFERENCIA
         )) {
@@ -94,10 +94,12 @@ public class DetectorGolpes {
         }
 
         // Um pedido explícito de dinheiro já exige cautela mesmo sem outros sinais.
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO
-        ) || analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
+        if (!declaracaoEnvioLegitimo && (
+                analisadorConteudo.contemAlgumTermo(
+                        mensagemNormalizada,
+                        CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO
+                ) || analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)
+        )) {
             pontuacao += 4;
             motivos.add("A mensagem contém um pedido de dinheiro.");
         }
@@ -151,7 +153,7 @@ public class DetectorGolpes {
         }
 
 
-        if (analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
+        if (!declaracaoEnvioLegitimo && analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
             pontuacao += 2;
             motivos.add("A mensagem menciona um valor em dinheiro.");
         }

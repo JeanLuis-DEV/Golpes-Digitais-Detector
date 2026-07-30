@@ -1,6 +1,7 @@
 package Modelos;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 // Localiza termos suspeitos, endereços e domínios dentro da mensagem.
@@ -58,6 +59,52 @@ public class AnalisadorConteudoMensagem {
                     mensagem,
                     CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
             );
+    }
+
+    public boolean contemDeclaracaoEnvioLegitimo(String mensagem) {
+        String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
+        String[] declaracoesAutonomas = {
+                "vou enviar",
+                "vou mandar",
+                "vou te enviar",
+                "vou te mandar",
+                "estou enviando",
+                "estou mandando",
+                "te envio",
+                "te mando",
+                "vou fazer um pix",
+                "vou fazer o pix",
+                "vou transferir",
+                "vou fazer uma transferencia",
+                "vou pagar",
+                "vou te pagar",
+                "envio um pix",
+                "envio o pix",
+                "mando um pix",
+                "mando o pix",
+                "enviei um pix",
+                "enviei",
+                "mandei um pix",
+                "mandei"
+        };
+
+        boolean temDeclaracaoAutonoma = false;
+        for (String declaracao : declaracoesAutonomas) {
+            if (mensagemNormalizada.contains(declaracao)) {
+                temDeclaracaoAutonoma = true;
+                break;
+            }
+        }
+
+        boolean temIndicadorTransferencia = mensagemNormalizada.contains("pix")
+                || mensagemNormalizada.contains("transferencia")
+                || mensagemNormalizada.contains("transferir")
+                || mensagemNormalizada.contains("dinheiro")
+                || mensagemNormalizada.contains("reais")
+                || mensagemNormalizada.contains("real")
+                || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
+
+        return temDeclaracaoAutonoma && temIndicadorTransferencia;
     }
 
     private String removerPontuacaoFinal(String palavra) {

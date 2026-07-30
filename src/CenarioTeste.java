@@ -27,6 +27,13 @@ public class CenarioTeste {
 
         executarTeste(
                 detector,
+                "Declaração legítima de envio de PIX",
+                "Parabéns pelo seu aniversário, vou enviar um pix de 120 reais.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        executarTeste(
+                detector,
                 "Pedido de foto e endereço de e-mail",
                 "Bom dia\n\nVocê quer cair em um golpe?\n\n"
                         + "preciso de uma foto sua e seu email",
