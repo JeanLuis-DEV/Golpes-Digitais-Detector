@@ -6,8 +6,11 @@ import java.util.regex.Pattern;
 // Localiza termos suspeitos, endereços e domínios dentro da mensagem.
 public class AnalisadorConteudoMensagem {
     private static final Pattern VALOR_NUMERICO = Pattern.compile(
-            "\\b(?:r\\$\\s*)?\\d+(?:[.,]\\d{1,2})?"
-                    + "\\s*(?:reais|real|pila|pilas|conto|contos)?\\b"
+            "\\b(?:r\\$\\s*)?"
+                    + "(?:\\d{1,3}(?:\\.\\d{3})+|\\d+)"
+                    + "(?:,\\d{2})?"
+                    + "\\s*(?:reais|real|pila|pilas|conto|contos)?\\b",
+            Pattern.CASE_INSENSITIVE
     );
 
     public boolean contemAlgumTermo(String mensagem, List<String> termos) {
@@ -47,7 +50,7 @@ public class AnalisadorConteudoMensagem {
 
     public boolean contemPedidoDeValor(String mensagem) {
         return VALOR_NUMERICO.matcher(mensagem).find()
-                && contemAlgumTermo(
+                || contemAlgumTermo(
                         mensagem,
                         CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
                 );

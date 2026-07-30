@@ -7,13 +7,13 @@ public class ClassificadorRisco {
 
     public String classificar(int pontuacao) {
         if (pontuacao >= LIMITE_RISCO_ALTO) {
-            return "ALTO";
+            return "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)";
         }
 
         if (pontuacao >= LIMITE_RISCO_MEDIO) {
-            return "MÉDIO";
+            return "SUSPEITO(VERIFIQUE A FONTE)";
         }
 
-        return "BAIXO";
+        return "POSSIVELMENTE LEGÍTIMO";
     }
 }
