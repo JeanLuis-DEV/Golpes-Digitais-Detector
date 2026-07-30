@@ -6,10 +6,14 @@ import java.util.regex.Pattern;
 // Localiza termos suspeitos, endereços e domínios dentro da mensagem.
 public class AnalisadorConteudoMensagem {
     private static final Pattern VALOR_NUMERICO = Pattern.compile(
-            "\\b(?:r\\$\\s*)?"
-                    + "(?:\\d{1,3}(?:\\.\\d{3})+|\\d+)"
-                    + "(?:,\\d{2})?"
-                    + "\\s*(?:reais|real|pila|pilas|conto|contos)?\\b",
+            "\\b(?:"
+                    // Opção 1: Começa com R$ (ex: R$ 50, R$ 50,00, R$ 1.000)
+                    + "(?:r\\$\\s*\\d+(?:\\.\\d{3})*(?:,\\d{2})?)"
+                    // Opção 2: Número com centavos (ex: 50,00, 1.500,50)
+                    + "|(?:\\d{1,3}(?:\\.\\d{3})+|\\d+),\\d{2}"
+                    // Opção 3: Número seguido de moeda/gíria (ex: 50 reais, 10 pilas, 5 contos)
+                    + "|(?:\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:reais|real|pila|pilas|conto|contos)"
+                    + ")\\b",
             Pattern.CASE_INSENSITIVE
     );
 
@@ -49,11 +53,11 @@ public class AnalisadorConteudoMensagem {
     }
 
     public boolean contemPedidoDeValor(String mensagem) {
-        return VALOR_NUMERICO.matcher(mensagem).find()
-                || contemAlgumTermo(
-                        mensagem,
-                        CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
-                );
+            return VALOR_NUMERICO.matcher(mensagem).find()
+                    || contemAlgumTermo(
+                    mensagem,
+                    CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
+            );
     }
 
     private String removerPontuacaoFinal(String palavra) {
