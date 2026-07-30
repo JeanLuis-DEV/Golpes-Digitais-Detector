@@ -34,6 +34,13 @@ public class CenarioTeste {
 
         executarTeste(
                 detector,
+                "Transferência suspeita com estou te mandando",
+                "Estou te mandando um pix de 50 reais para a conta do aluguel.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        executarTeste(
+                detector,
                 "Pedido de foto e endereço de e-mail",
                 "Bom dia\n\nVocê quer cair em um golpe?\n\n"
                         + "preciso de uma foto sua e seu email",

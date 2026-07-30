@@ -55,6 +55,12 @@ public class DetectorGolpes {
                         CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO
                 );
         boolean declaracaoEnvioLegitimo = analisadorConteudo.contemDeclaracaoEnvioLegitimo(mensagemNormalizada);
+        boolean transferenciaSuspeita = analisadorConteudo.contemTransferenciaSuspeita(mensagemNormalizada);
+
+        if (transferenciaSuspeita) {
+            pontuacao += 4;
+            motivos.add("A mensagem descreve uma transferência inesperada e merece verificação.");
+        }
 
         if (contemPromessaDinheiro && contemLink) {
             pontuacao += 4;
@@ -77,7 +83,7 @@ public class DetectorGolpes {
             motivos.add("A mensagem contém um arquivo que pode executar programas maliciosos.");
         }
 
-        if (!declaracaoEnvioLegitimo && analisadorConteudo.contemAlgumTermo(
+        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && analisadorConteudo.contemAlgumTermo(
                 mensagemNormalizada,
                 CatalogoTermosGolpe.TERMOS_TRANSFERENCIA
         )) {
@@ -94,7 +100,7 @@ public class DetectorGolpes {
         }
 
         // Um pedido explícito de dinheiro já exige cautela mesmo sem outros sinais.
-        if (!declaracaoEnvioLegitimo && (
+        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && (
                 analisadorConteudo.contemAlgumTermo(
                         mensagemNormalizada,
                         CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO
@@ -153,7 +159,7 @@ public class DetectorGolpes {
         }
 
 
-        if (!declaracaoEnvioLegitimo && analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
+        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
             pontuacao += 2;
             motivos.add("A mensagem menciona um valor em dinheiro.");
         }
