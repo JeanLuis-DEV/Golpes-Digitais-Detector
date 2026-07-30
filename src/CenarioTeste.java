@@ -15,14 +15,14 @@ public class CenarioTeste {
                 detector,
                 "Mensagem segura",
                 "Olá, a reunião será amanhã às 14 horas.",
-                "BAIXO"
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
         executarTeste(
                 detector,
                 "Mensagem segura com endereço de e-mail",
                 "Olá, meu e-mail para contato é atendimento@gmail.com",
-                "BAIXO"
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
         executarTeste(
@@ -30,49 +30,49 @@ public class CenarioTeste {
                 "Pedido de foto e endereço de e-mail",
                 "Bom dia\n\nVocê quer cair em um golpe?\n\n"
                         + "preciso de uma foto sua e seu email",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Prêmio com solicitação de retorno",
                 "Você ganhou 100 reais, retorne nesse contato.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Valor recebido com chamada para resgate",
                 "Você acaba de receber $100, me chama pra resgatar.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Promoção com pedido de valor",
                 "Oi mãe, inscrevi a senhora numa promo, manda 50 reais pra receber aqui.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Pedido de valor sem informar a moeda",
                 "Oi pai, to sem meu cartão aqui, manda 150 aí",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Número novo com pedido informal de valor",
                 "Oi mãe, esse é meu número novo, consegue me apoiar 100 pila? meu carro quebrou",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "WhatsApp antigo perdido com pedido de valor",
                 "Fala véi, perdi meu zap antigo. Salva esse aqui e quebra 80 pra mim que amanhã devolvo.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -80,14 +80,14 @@ public class CenarioTeste {
                 "Celular quebrado com pedido de adiantamento",
                 "Mãe, meu cel foi pro saco. Tô falando pelo aparelho de um parceiro, "
                         + "consegue adiantar 120?",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Valor disponível com pedido de retorno",
                 "Mano, saiu uma bolada no teu nome. Dá um alô aqui pra gente liberar isso.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -95,21 +95,21 @@ public class CenarioTeste {
                 "Taxa para liberar encomenda",
                 "Sua encomenda ficou travada por uma taxinha de 27,90. "
                         + "Acerta isso pra ela seguir viagem.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Troca de contato com pedido de ajuda",
                 "Paizão, troca meu contato aí. Tô apertado e precisava duma força de 200 hoje.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Dinheiro aguardando retirada",
                 "Tem uma grana parada te esperando aqui. Chama no zap pra pegar.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
@@ -117,14 +117,14 @@ public class CenarioTeste {
                 "Benefício com pedido de código",
                 "Consegui um benefício pra você, só falta passar os 6 dígitos "
                         + "que chegaram no celular.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Frete preso com pedido informal de valor",
                 "O frete deu ruim e ficou preso. Faz a boa de 35 pra liberar ainda hoje.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -132,49 +132,49 @@ public class CenarioTeste {
                 "Sorteio com pedido de confirmação",
                 "Fui sorteado numa parada aqui e coloquei teu nome também. "
                         + "Me dá um toque pra confirmar.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Oportunidade com pagamento antecipado",
                 "Amiga, apareceu uma oportunidade muito top, mas precisa entrar com 50 primeiro. Bora?",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Ameaça de bloqueio de conta",
                 "Seu cadastro está irregular e sua conta será bloqueada.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Falsa central solicitando confirmação",
                 "Somos da central antifraude. Confirme seus dados agora.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Cobrança antecipada para encomenda",
                 "Sua encomenda está retida. Pague a taxa de entrega para liberar.",
-                "MÉDIO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Investimento com retorno garantido",
                 "Oportunidade imperdível com lucro garantido e saque imediato.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Solicitação de acesso remoto",
                 "Instale AnyDesk e compartilhe sua tela com o suporte.",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -182,21 +182,21 @@ public class CenarioTeste {
                 "Prêmio em dinheiro acompanhado de link",
                 "Boa tarde, dona Maria! Parabéns, a senhora acabou de ganhar 20 mil, "
                         + "clique nesse link: www.premiocerto.com.br e retire seu prêmio.",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Promessa de dinheiro com link sem mencionar prêmio",
                 "Receba R$ 500 acessando https://credito-liberado.com.br",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Link informativo sem promessa financeira",
                 "Confira o calendário da reunião em https://empresa.com.br/agenda",
-                "BAIXO"
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
         // Demais cenários: diferentes exemplos de mensagens suspeitas.
@@ -204,28 +204,28 @@ public class CenarioTeste {
                 detector,
                 "Mensagem com sinais de alerta",
                 "Última chance! Você ganhou um prêmio.",
-                "MÉDIO"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
                 detector,
                 "Mensagem com vários sinais de golpe",
                 "Urgente! Informe sua senha agora em https://site-desconhecido.com",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Mensagem de prêmio com link disfarçado",
                 "Você acabou de ganhar um iphone, entre em contato agora mesmo pelo link: link.curto/premio",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Pedido de PIX para outra pessoa",
                 "Mãe, preciso de um dinheiro emprestado, manda pro PIX do meu amigo meupix@pix.com",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -233,7 +233,7 @@ public class CenarioTeste {
                 "Empréstimo com PIX para prestador de serviço",
                 "Fala João, deu um problema com meu banco aqui, consegue me emprestar um dinheiro? "
                         + "pode enviar direto pro mecânico meupix@email.com",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -241,35 +241,35 @@ public class CenarioTeste {
                 "Pedido de PIX enviado diretamente para uma loja",
                 "Oi Tiago, meu cartão não está passando, consegue me mandar um pix, depois eu te pago, "
                         + "pode mandar direto para a loja pixdaloja@gmail.com",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Cadastro com prêmio imediato",
                 "Cadastre-se e ganhe 300 reais na hora premiofacil.com/premio",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Falso vídeo em arquivo executável",
                 "Olá, amigo! Peguei sua esposa lhe traindo, estou te mandando o vídeo traição.exe",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Pedido de voto com prêmio em dinheiro",
                 "Oiie, vote em mim no site TheBest e ganhe 50 reais premiacao.io",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
                 detector,
                 "Prêmio em domínio estrangeiro",
                 "Última chance! Você ganhou um prêmio em premiointernacional.co",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
@@ -277,7 +277,7 @@ public class CenarioTeste {
                 "Mensagem com acentos usados para esconder o golpe",
                 "Ólá, précisó de ajúdá, me mándá úm píx, "
                         + "mándá párá a cóntá dé úm ámígó píx@gmáíl.cóm",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTesteLeituraMultilinha(detector);
@@ -302,9 +302,9 @@ public class CenarioTeste {
         ResultadoAnalise resultado = detector.analisar(mensagem);
         System.out.println("Mensagem colada com várias linhas: " + resultado.getNivelRisco());
 
-        if (!"ALTO".equals(resultado.getNivelRisco())) {
+        if (!"POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)".equals(resultado.getNivelRisco())) {
             throw new AssertionError(
-                    "Esperado: ALTO | Obtido: " + resultado.getNivelRisco()
+                    "Esperado: POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!) | Obtido: " + resultado.getNivelRisco()
             );
         }
     }
