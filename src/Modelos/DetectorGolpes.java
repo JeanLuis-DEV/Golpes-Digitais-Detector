@@ -1,16 +1,20 @@
 package Modelos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Coordena a análise da mensagem e aplica as regras de pontuação.
 public class DetectorGolpes {
     private final NormalizadorMensagem normalizador = new NormalizadorMensagem();
     private final AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
     private final ClassificadorRisco classificadorRisco = new ClassificadorRisco();
-
     // Analisa uma mensagem e devolve sua pontuação, classificação e motivos.
     public ResultadoAnalise analisar(String mensagem) {
         validarMensagem(mensagem);
+
+        HashMap<String, Integer> elementos = new HashMap<>();
+        elementos.put("A mensagem tenta criar urgência.", 1);
+        elementos.put("A mensagem oferece prêmio ou dinheiro fácil.", 2);
 
         String mensagemNormalizada = normalizador.normalizar(mensagem);
         int pontuacao = 0;
