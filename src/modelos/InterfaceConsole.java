@@ -1,7 +1,7 @@
-package Modelos;
+package modelos;
 
 // Organiza a apresentação visual do programa no terminal.
-public class InterfaceConsole {
+public final class InterfaceConsole {
     private static final int LARGURA_CONTEUDO = 66;
     private static final String BORDA_PRINCIPAL = "=".repeat(LARGURA_CONTEUDO);
     private static final String BORDA_INTERNA = "-".repeat(LARGURA_CONTEUDO);
