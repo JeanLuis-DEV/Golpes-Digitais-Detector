@@ -63,15 +63,22 @@ public class AnalisadorConteudoMensagem {
 
     public boolean contemDeclaracaoEnvioLegitimo(String mensagem) {
         String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
+
+        if (mensagemNormalizada.contains("estou te mandando")
+                || mensagemNormalizada.contains("estou mandando")
+                || mensagemNormalizada.contains("estou te enviando")) {
+            return false;
+        }
+
         String[] declaracoesAutonomas = {
                 "vou enviar",
                 "vou mandar",
                 "vou te enviar",
                 "vou te mandar",
                 "estou enviando",
-                "estou mandando",
                 "te envio",
                 "te mando",
+                "te mandando",
                 "vou fazer um pix",
                 "vou fazer o pix",
                 "vou transferir",
@@ -85,7 +92,9 @@ public class AnalisadorConteudoMensagem {
                 "enviei um pix",
                 "enviei",
                 "mandei um pix",
-                "mandei"
+                "mandei",
+                "estou te pagando",
+                "devo"
         };
 
         boolean temDeclaracaoAutonoma = false;
@@ -105,6 +114,23 @@ public class AnalisadorConteudoMensagem {
                 || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
 
         return temDeclaracaoAutonoma && temIndicadorTransferencia;
+    }
+
+    public boolean contemTransferenciaSuspeita(String mensagem) {
+        String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
+        boolean temPadraoSuspeito = mensagemNormalizada.contains("estou te mandando")
+                || mensagemNormalizada.contains("estou mandando")
+                || mensagemNormalizada.contains("estou te enviando");
+
+        boolean temIndicadorTransferencia = mensagemNormalizada.contains("pix")
+                || mensagemNormalizada.contains("transferencia")
+                || mensagemNormalizada.contains("transferir")
+                || mensagemNormalizada.contains("dinheiro")
+                || mensagemNormalizada.contains("reais")
+                || mensagemNormalizada.contains("real")
+                || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
+
+        return temPadraoSuspeito && temIndicadorTransferencia;
     }
 
     private String removerPontuacaoFinal(String palavra) {
