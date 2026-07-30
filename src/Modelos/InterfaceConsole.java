@@ -1,3 +1,5 @@
+package Modelos;
+
 // Organiza a apresentação visual do programa no terminal.
 public class InterfaceConsole {
     private static final int LARGURA_CONTEUDO = 66;

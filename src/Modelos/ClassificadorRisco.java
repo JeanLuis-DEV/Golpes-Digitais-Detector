@@ -1,3 +1,5 @@
+package Modelos;
+
 // Converte a pontuação calculada em um nível de risco.
 public class ClassificadorRisco {
     private static final int LIMITE_RISCO_MEDIO = 4;

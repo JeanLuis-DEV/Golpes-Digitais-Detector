@@ -1,3 +1,5 @@
+package Modelos;
+
 import java.util.ArrayList;
 
 // Coordena a análise da mensagem e aplica as regras de pontuação.

@@ -1,3 +1,5 @@
+package Modelos;
+
 import java.util.List;
 
 // Centraliza os termos e padrões consultados durante a análise.
