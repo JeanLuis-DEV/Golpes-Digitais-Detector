@@ -44,7 +44,7 @@ public class CenarioTeste {
                 detector,
                 "Valor recebido com chamada para resgate",
                 "Você acaba de receber $100, me chama pra resgatar.",
-                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
@@ -58,7 +58,7 @@ public class CenarioTeste {
                 detector,
                 "Pedido de valor sem informar a moeda",
                 "Oi pai, to sem meu cartão aqui, manda 150 aí",
-                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
@@ -95,7 +95,7 @@ public class CenarioTeste {
                 "Taxa para liberar encomenda",
                 "Sua encomenda ficou travada por uma taxinha de 27,90. "
                         + "Acerta isso pra ela seguir viagem.",
-                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
@@ -139,7 +139,7 @@ public class CenarioTeste {
                 detector,
                 "Oportunidade com pagamento antecipado",
                 "Amiga, apareceu uma oportunidade muito top, mas precisa entrar com 50 primeiro. Bora?",
-                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
