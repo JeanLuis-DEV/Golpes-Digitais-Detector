@@ -64,6 +64,8 @@ public final class AnalisadorConteudoMensagem {
 
         while (inicio >= 0) {
             int fim = inicio + termo.length();
+
+            // Os limites evitam falsos positivos como "real" dentro de "realmente".
             boolean limiteInicialValido = !Character.isLetterOrDigit(termo.charAt(0))
                     || inicio == 0
                     || !Character.isLetterOrDigit(mensagem.charAt(inicio - 1));

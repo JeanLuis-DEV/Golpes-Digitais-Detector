@@ -2,7 +2,7 @@ package modelos;
 
 import java.util.List;
 
-// Representa o resultado final produzido pelo Modelos.DetectorGolpes.
+// Representa o resultado final produzido pelo DetectorGolpes.
 public final class ResultadoAnalise {
     // Guarda a classificação, a pontuação e os motivos encontrados.
     private final String nivelRisco;

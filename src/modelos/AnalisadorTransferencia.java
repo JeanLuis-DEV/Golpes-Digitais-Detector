@@ -61,10 +61,8 @@ public final class AnalisadorTransferencia {
     }
 
     private boolean contemIndicadorFinanceiro(String mensagem) {
-        return analisadorConteudo.contemAlgumTermo(
-                mensagem,
-                INDICADORES_DE_TRANSFERENCIA
-        ) || analisadorConteudo.contemValorNumerico(mensagem)
+        return analisadorConteudo.contemAlgumTermo(mensagem, INDICADORES_DE_TRANSFERENCIA)
+                || analisadorConteudo.contemValorNumerico(mensagem)
                 || analisadorConteudo.contemChavePixEmail(mensagem);
     }
 }
