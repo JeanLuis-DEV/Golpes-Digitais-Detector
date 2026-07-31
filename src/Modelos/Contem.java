@@ -1,5 +1,7 @@
 package Modelos;
 
-public interface Contem {
+import java.util.ArrayList;
 
+public interface Contem {
+    public int verificacao(Boolean condicaoTermo, int pontosDeteccao, String motivo, ArrayList<String> motivos);
 }

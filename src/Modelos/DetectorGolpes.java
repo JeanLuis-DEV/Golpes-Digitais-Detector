@@ -8,76 +8,37 @@ public class DetectorGolpes {
     private final NormalizadorMensagem normalizador = new NormalizadorMensagem();
     private final AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
     private final ClassificadorRisco classificadorRisco = new ClassificadorRisco();
+
     // Analisa uma mensagem e devolve sua pontuação, classificação e motivos.
     public ResultadoAnalise analisar(String mensagem) {
         validarMensagem(mensagem);
-
-        HashMap<String, Integer> elementos = new HashMap<>();
-        elementos.put("A mensagem tenta criar urgência.", 1);
-        elementos.put("A mensagem oferece prêmio ou dinheiro fácil.", 2);
-
         String mensagemNormalizada = normalizador.normalizar(mensagem);
         int pontuacao = 0;
         ArrayList<String> motivos = new ArrayList<>();
+        DeclaracoesCondicionais condicoes = new DeclaracoesCondicionais(mensagemNormalizada);
+        Execucaoif execucao = new Execucaoif();
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_URGENCIA
-        )) {
-            pontuacao += 2;
-            motivos.add("A mensagem tenta criar urgência.");
-        }
+        pontuacao += execucao.verificacao(condicoes.urgencia,2,
+                "A mensagem tenta criar urgência.", motivos);
 
-        boolean contemPremio = analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_PREMIO
-        );
+        pontuacao += execucao.verificacao(condicoes.contemPremio,2,
+                "A mensagem oferece prêmio ou dinheiro fácil.", motivos);
 
-        if (contemPremio) {
-            pontuacao += 2;
-            motivos.add("A mensagem oferece prêmio ou dinheiro fácil.");
-        }
+        pontuacao += execucao.verificacao(condicoes.dadosPessoais,4,
+                "A mensagem solicita dados pessoais ou bancários.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_DADOS_PESSOAIS
-        )) {
-            pontuacao += 4;
-            motivos.add("A mensagem solicita dados pessoais ou bancários.");
-        }
+        pontuacao += execucao.verificacao(condicoes.contemLink,3,
+                "A mensagem contém um link.", motivos);
 
-        boolean contemLink = analisadorConteudo.contemLink(mensagemNormalizada);
+        pontuacao += execucao.verificacao(condicoes.transferenciaSuspeita, 4,
+                "A mensagem descreve uma transferência inesperada e merece verificação.", motivos);
 
-        if (contemLink) {
-            pontuacao += 3;
-            motivos.add("A mensagem contém um link.");
-        }
+        pontuacao += execucao.verificacao(condicoes.contemPromessaDinheiro && condicoes.contemLink,4,
+            "A mensagem combina um link com uma promessa de dinheiro.", motivos);
 
-        boolean contemPromessaDinheiro = contemPremio
-                || analisadorConteudo.contemAlgumTermo(
-                        mensagemNormalizada,
-                        CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO
-                );
-        boolean declaracaoEnvioLegitimo = analisadorConteudo.contemDeclaracaoEnvioLegitimo(mensagemNormalizada);
-        boolean transferenciaSuspeita = analisadorConteudo.contemTransferenciaSuspeita(mensagemNormalizada);
+        pontuacao += execucao.verificacao(condicoes.pedidoAcao, 2,
+                "A mensagem solicita que a pessoa realize uma ação.", motivos);
 
-        if (transferenciaSuspeita) {
-            pontuacao += 4;
-            motivos.add("A mensagem descreve uma transferência inesperada e merece verificação.");
-        }
-
-        if (contemPromessaDinheiro && contemLink) {
-            pontuacao += 4;
-            motivos.add("A mensagem combina um link com uma promessa de dinheiro.");
-        }
-
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.PEDIDOS_DE_ACAO
-        )) {
-            pontuacao += 2;
-            motivos.add("A mensagem solicita que a pessoa realize uma ação.");
-        }
 
         if (analisadorConteudo.contemAlgumTermo(
                 mensagemNormalizada,
@@ -86,6 +47,7 @@ public class DetectorGolpes {
             pontuacao += 7;
             motivos.add("A mensagem contém um arquivo que pode executar programas maliciosos.");
         }
+
 
         if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && analisadorConteudo.contemAlgumTermo(
                 mensagemNormalizada,
