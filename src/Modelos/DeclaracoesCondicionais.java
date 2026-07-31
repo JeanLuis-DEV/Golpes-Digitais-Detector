@@ -9,6 +9,17 @@ public class DeclaracoesCondicionais {
     protected boolean transferenciaSuspeita;
     protected boolean dadosPessoais;
     protected boolean pedidoAcao;
+    protected boolean arquivosPerigosos;
+    protected boolean termosTransferencias;
+    protected boolean mudancaContato;
+    protected boolean pedidosDinheiro;
+    protected boolean pedidosValor;
+    protected boolean pagamentoParaTerceiros;
+    protected boolean ameacaBloqueio;
+    protected boolean falsaInstituicao;
+    protected boolean taxaAntecipada;
+    protected boolean investimentoSuspeito;
+    protected boolean acessoRemoto;
 
     public DeclaracoesCondicionais(String mensagem) {
         AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
@@ -33,13 +44,52 @@ public class DeclaracoesCondicionais {
         contemPromessaDinheiro = contemPremio
                 || analisadorConteudo.contemAlgumTermo(
                 mensagem,
-                CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO
-        );
+                CatalogoTermosGolpe.TERMOS_PROMESSA_DINHEIRO);
 
         pedidoAcao = analisadorConteudo.contemAlgumTermo(
                 mensagem,
-                CatalogoTermosGolpe.PEDIDOS_DE_ACAO
-        );
-    }
+                CatalogoTermosGolpe.PEDIDOS_DE_ACAO);
 
+        arquivosPerigosos = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.ARQUIVOS_PERIGOSOS);
+
+        termosTransferencias = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_TRANSFERENCIA);
+
+        mudancaContato = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_MUDANCA_CONTATO);
+
+        pedidosDinheiro = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO);
+
+        pedidosValor = analisadorConteudo.contemPedidoDeValor(mensagem);
+
+        pagamentoParaTerceiros = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.PAGAMENTO_PARA_TERCEIROS);
+
+        ameacaBloqueio = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_AMEACA_OU_BLOQUEIO);
+
+        falsaInstituicao = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_FALSA_INSTITUICAO);
+
+        taxaAntecipada = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_TAXA_ANTECIPADA);
+
+        investimentoSuspeito = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_INVESTIMENTO_SUSPEITO);
+
+        acessoRemoto = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_ACESSO_REMOTO);
+    }
 }

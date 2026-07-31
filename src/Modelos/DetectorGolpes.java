@@ -39,96 +39,39 @@ public class DetectorGolpes {
         pontuacao += execucao.verificacao(condicoes.pedidoAcao, 2,
                 "A mensagem solicita que a pessoa realize uma ação.", motivos);
 
+        pontuacao += execucao.verificacao(condicoes.arquivosPerigosos, 7,
+                "A mensagem contém um arquivo que pode executar programas maliciosos.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.ARQUIVOS_PERIGOSOS
-        )) {
-            pontuacao += 7;
-            motivos.add("A mensagem contém um arquivo que pode executar programas maliciosos.");
-        }
+        pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo && condicoes.termosTransferencias,
+                3, "A mensagem solicita uma transferência de dinheiro.", motivos);
 
+        pontuacao += execucao.verificacao(condicoes.mudancaContato, 2,
+                "A mensagem informa uma mudança inesperada de contato.", motivos);
 
-        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_TRANSFERENCIA
-        )) {
-            pontuacao += 3;
-            motivos.add("A mensagem solicita uma transferência de dinheiro.");
-        }
+        pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo
+        && (condicoes.pedidosDinheiro || condicoes.pedidosValor), 4, "A mensagem contém um pedido de dinheiro.",
+                motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_MUDANCA_CONTATO
-        )) {
-            pontuacao += 2;
-            motivos.add("A mensagem informa uma mudança inesperada de contato.");
-        }
+        pontuacao += execucao.verificacao(condicoes.pagamentoParaTerceiros, 2,
+                "O pagamento solicitado seria enviado para outra pessoa.", motivos);
 
-        // Um pedido explícito de dinheiro já exige cautela mesmo sem outros sinais.
-        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && (
-                analisadorConteudo.contemAlgumTermo(
-                        mensagemNormalizada,
-                        CatalogoTermosGolpe.PEDIDOS_DE_DINHEIRO
-                ) || analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)
-        )) {
-            pontuacao += 4;
-            motivos.add("A mensagem contém um pedido de dinheiro.");
-        }
+        pontuacao += execucao.verificacao(condicoes.ameacaBloqueio, 4,
+                "A mensagem ameaça bloquear ou suspender um serviço.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.PAGAMENTO_PARA_TERCEIROS
-        )) {
-            pontuacao += 2;
-            motivos.add("O pagamento solicitado seria enviado para outra pessoa.");
-        }
+        pontuacao += execucao.verificacao(condicoes.falsaInstituicao, 2,
+                "A mensagem tenta se apresentar como uma instituição ou suporte.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_AMEACA_OU_BLOQUEIO
-        )) {
-            pontuacao += 4;
-            motivos.add("A mensagem ameaça bloquear ou suspender um serviço.");
-        }
+        pontuacao += execucao.verificacao(condicoes.taxaAntecipada, 4,
+                "A mensagem cobra um valor antecipado para liberar algo.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_FALSA_INSTITUICAO
-        )) {
-            pontuacao += 2;
-            motivos.add("A mensagem tenta se apresentar como uma instituição ou suporte.");
-        }
+        pontuacao += execucao.verificacao(condicoes.investimentoSuspeito, 4,
+                "A mensagem promete retorno financeiro fácil ou garantido.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_TAXA_ANTECIPADA
-        )) {
-            pontuacao += 4;
-            motivos.add("A mensagem cobra um valor antecipado para liberar algo.");
-        }
+        pontuacao += execucao.verificacao(condicoes.acessoRemoto, 7,
+                "A mensagem solicita acesso remoto ao dispositivo.", motivos);
 
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_INVESTIMENTO_SUSPEITO
-        )) {
-            pontuacao += 4;
-            motivos.add("A mensagem promete retorno financeiro fácil ou garantido.");
-        }
-
-        if (analisadorConteudo.contemAlgumTermo(
-                mensagemNormalizada,
-                CatalogoTermosGolpe.TERMOS_ACESSO_REMOTO
-        )) {
-            pontuacao += 7;
-            motivos.add("A mensagem solicita acesso remoto ao dispositivo.");
-        }
-
-
-        if (!transferenciaSuspeita && !declaracaoEnvioLegitimo && analisadorConteudo.contemPedidoDeValor(mensagemNormalizada)) {
-            pontuacao += 2;
-            motivos.add("A mensagem menciona um valor em dinheiro.");
-        }
+        pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo
+        && condicoes.pedidosValor, 2, "A mensagem solicita acesso remoto ao dispositivo.", motivos);
 
         String nivelRisco = classificadorRisco.classificar(pontuacao);
         return new ResultadoAnalise(nivelRisco, pontuacao, motivos);
