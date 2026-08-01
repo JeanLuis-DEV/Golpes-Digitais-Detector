@@ -10,10 +10,14 @@ public class AnalisadorConteudoMensagem {
             "\\b(?:"
                     // Opção 1: Começa com R$ (ex: R$ 50, R$ 50,00, R$ 1.000)
                     + "(?:r\\$\\s*\\d+(?:\\.\\d{3})*(?:,\\d{2})?)"
-                    // Opção 2: Número com centavos (ex: 50,00, 1.500,50)
+                    // Opção 2: Símbolos de moedas internacionais (ex: $100, €50, £1000)
+                    + "|(?:[\\$€£¥]\\s*\\d+(?:[.,]\\d{2})?)"
+                    // Opção 3: Número com centavos (ex: 50,00, 1.500,50)
                     + "|(?:\\d{1,3}(?:\\.\\d{3})+|\\d+),\\d{2}"
-                    // Opção 3: Número seguido de moeda/gíria (ex: 50 reais, 10 pilas, 5 contos)
+                    // Opção 4: Número seguido de moeda/gíria (ex: 50 reais, 10 pilas, 5 contos)
                     + "|(?:\\d{1,3}(?:\\.\\d{3})+|\\d+)\\s*(?:reais|real|pila|pilas|conto|contos)"
+                    // Opção 5: Número seguido de códigos de moedas internacionais (ex: 100 USD, 50 EUR, 1000 GBP, 5 BTC)
+                    + "|(?:\\d+(?:[.,]\\d{2})?)\\s*(?:usd|eur|gbp|btc|eth|jpy|cny|inr|brl)"
                     + ")\\b",
             Pattern.CASE_INSENSITIVE
     );
