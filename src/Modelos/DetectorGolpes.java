@@ -16,7 +16,7 @@ public class DetectorGolpes {
 
         Execucaoif execucao = new Execucaoif();
 
-        Verificacoes verificar = new Verificacoes();
+        Verificacoes verificar = new Verificacoes(execucao);
 
         int pontuacao = verificar.contemTermos(mensagemNormalizada);
 

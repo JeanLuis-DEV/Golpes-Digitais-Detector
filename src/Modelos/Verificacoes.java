@@ -1,10 +1,12 @@
 package Modelos;
 
-import java.util.HashMap;
-
 public class Verificacoes{
-    Execucaoif execucao = new Execucaoif();
+    Execucaoif execucao;
     MapMotivos motivos = new MapMotivos();
+
+    public Verificacoes(Execucaoif execucao) {
+        this.execucao = execucao;
+    }
 
     public int contemTermos(String mensagemNormalizada) {
         int pontuacao = 0;
