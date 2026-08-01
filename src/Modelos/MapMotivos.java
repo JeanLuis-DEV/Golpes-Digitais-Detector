@@ -23,7 +23,7 @@ public class MapMotivos {
         listaMotivos.put("taxaAntecipada", "A mensagem cobra um valor antecipado para liberar algo.");
         listaMotivos.put("investimentoSuspeito", "A mensagem promete retorno financeiro fácil ou garantido.");
         listaMotivos.put("acessoRemoto", "A mensagem solicita acesso remoto ao dispositivo.");
-        listaMotivos.put("pedidosValor_acessoRemoto", "A mensagem solicita acesso remoto ao dispositivo.");
+        listaMotivos.put("pedidosValor", "A mensagem menciona um valor em dinheiro.");
     }
     public String getListaMotivos(String chave) {
         return listaMotivos.get(chave);

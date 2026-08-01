@@ -64,7 +64,7 @@ public class Verificacoes{
                 motivos.getListaMotivos("acessoRemoto"));
 
         pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo
-                && condicoes.pedidosValor, 2, motivos.getListaMotivos("pedidosValor_acessoRemoto"));
+                && condicoes.pedidosValor, 2, motivos.getListaMotivos("pedidosValor"));
         return pontuacao;
     }
 }
