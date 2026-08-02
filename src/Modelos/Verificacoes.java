@@ -65,6 +65,9 @@ public class Verificacoes{
 
         pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo
                 && condicoes.pedidosValor, 2, motivos.getListaMotivos("pedidosValor"));
+
+        pontuacao += execucao.verificacao(condicoes.pixEngano, 4,
+                motivos.getListaMotivos("pixEngano"));
         return pontuacao;
     }
 }
