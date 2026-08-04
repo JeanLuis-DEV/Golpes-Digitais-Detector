@@ -20,6 +20,7 @@ public class DeclaracoesCondicionais {
     protected boolean taxaAntecipada;
     protected boolean investimentoSuspeito;
     protected boolean acessoRemoto;
+    protected boolean pixEngano;
 
     public DeclaracoesCondicionais(String mensagem) {
         AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
@@ -91,5 +92,10 @@ public class DeclaracoesCondicionais {
         acessoRemoto = analisadorConteudo.contemAlgumTermo(
                 mensagem,
                 CatalogoTermosGolpe.TERMOS_ACESSO_REMOTO);
+
+        pixEngano = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_PIX_ENGANO
+        );
     }
 }

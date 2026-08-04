@@ -192,6 +192,15 @@ public final class CatalogoTermosGolpe {
             "codigo do anydesk", "id do teamviewer", "senha do acesso remoto",
             "aplicativo de suporte", "app de suporte"
     );
+    public static final List<String> TERMOS_PIX_ENGANO = List.of(
+            "chegou um pix", "pix errado", "pix por engano",
+            "manda de volta", "me devolva", "devolve o pix",
+            "transferencia por engano", "transferencia errada",
+            "paguei errado", "mandei errado", "mandei pra voce por engano",
+            "chegou pra voce errado", "nao era pra ser seu",
+            "preciso que devolva", "e meu dinheiro", "roubaram meu pix",
+            "pix falso", "pix falsificado"
+    );
 
     private CatalogoTermosGolpe() {
         // Impede a criação de instâncias de uma classe que contém apenas constantes.

@@ -24,6 +24,7 @@ public class MapMotivos {
         listaMotivos.put("investimentoSuspeito", "A mensagem promete retorno financeiro fácil ou garantido.");
         listaMotivos.put("acessoRemoto", "A mensagem solicita acesso remoto ao dispositivo.");
         listaMotivos.put("pedidosValor", "A mensagem menciona um valor em dinheiro.");
+        listaMotivos.put("pixEngano", "A mensagem solicita retorno de um valor enviado a ele por pix.");
     }
 
     public String getListaMotivos(String chave) {

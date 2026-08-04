@@ -21,7 +21,7 @@ public class AnalisadorConteudoMensagem {
                     + ")\\b",
             Pattern.CASE_INSENSITIVE
     );
-
+    private Moedas tiposMoedas = new Moedas();
     public boolean contemAlgumTermo(String mensagem, List<String> termos) {
         for (String termo : termos) {
             if (mensagem.contains(termo)) {
@@ -58,11 +58,11 @@ public class AnalisadorConteudoMensagem {
     }
 
     public boolean contemPedidoDeValor(String mensagem) {
-        return VALOR_NUMERICO.matcher(mensagem).find()
-                || contemAlgumTermo(
-                mensagem,
-                CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
-        );
+            return VALOR_NUMERICO.matcher(mensagem).find()
+                    || contemAlgumTermo(
+                    mensagem,
+                    CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
+            );
     }
 
     public boolean contemDeclaracaoEnvioLegitimo(String mensagem) {
@@ -113,68 +113,32 @@ public class AnalisadorConteudoMensagem {
                 || mensagemNormalizada.contains("transferencia")
                 || mensagemNormalizada.contains("transferir")
                 || mensagemNormalizada.contains("dinheiro")
-                || contemMoedas(mensagemNormalizada)
+                || tiposMoedas.contemMoedas(mensagemNormalizada)
                 || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
 
         return temDeclaracaoAutonoma && temIndicadorTransferencia;
     }
 
     public boolean contemTransferenciaSuspeita(String mensagem) {
-        String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
-        boolean temPadraoSuspeito = mensagemNormalizada.contains("estou te mandando")
-                || mensagemNormalizada.contains("estou mandando")
-                || mensagemNormalizada.contains("estou te enviando");
+       String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
+       boolean temPadraoSuspeito = mensagemNormalizada.contains("estou te mandando")
+               || mensagemNormalizada.contains("estou mandando")
+               || mensagemNormalizada.contains("estou te enviando");
 
-        boolean temIndicadorTransferencia = contemIndicadoresTransferencia(mensagemNormalizada);
+       boolean temIndicadorTransferencia = contemIndicadoresTransferencia(mensagemNormalizada);
 
-        return temPadraoSuspeito && temIndicadorTransferencia;
+       return temPadraoSuspeito && temIndicadorTransferencia;
     }
 
     private boolean contemIndicadoresTransferencia(String mensagemNormalizada) {
-        return mensagemNormalizada.contains("pix")
-                || mensagemNormalizada.contains("transferencia")
-                || mensagemNormalizada.contains("transferir")
-                || mensagemNormalizada.contains("dinheiro")
-                || contemMoedas(mensagemNormalizada)
-                || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
+       return mensagemNormalizada.contains("pix")
+               || mensagemNormalizada.contains("transferencia")
+               || mensagemNormalizada.contains("transferir")
+               || mensagemNormalizada.contains("dinheiro")
+               || tiposMoedas.contemMoedas(mensagemNormalizada)
+               || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
     }
 
-    private boolean contemMoedas(String mensagemNormalizada) {
-        return contemMoedasBrasileiras(mensagemNormalizada)
-                || contemMoedasInternacionais(mensagemNormalizada)
-                || contemCryptomoedas(mensagemNormalizada);
-    }
-
-    private boolean contemMoedasBrasileiras(String mensagemNormalizada) {
-        return mensagemNormalizada.contains("real")
-                || mensagemNormalizada.contains("reais");
-    }
-
-    private boolean contemMoedasInternacionais(String mensagemNormalizada) {
-        return mensagemNormalizada.contains("dolar")
-                || mensagemNormalizada.contains("dolares")
-                || mensagemNormalizada.contains("usd")
-                || mensagemNormalizada.contains("euro")
-                || mensagemNormalizada.contains("euros")
-                || mensagemNormalizada.contains("eur")
-                || mensagemNormalizada.contains("libra")
-                || mensagemNormalizada.contains("libras")
-                || mensagemNormalizada.contains("gbp")
-                || mensagemNormalizada.contains("peso")
-                || mensagemNormalizada.contains("pesos")
-                || mensagemNormalizada.contains("yen")
-                || mensagemNormalizada.contains("franco")
-                || mensagemNormalizada.contains("francos");
-    }
-
-    private boolean contemCryptomoedas(String mensagemNormalizada) {
-        return mensagemNormalizada.contains("bitcoin")
-                || mensagemNormalizada.contains("btc")
-                || mensagemNormalizada.contains("ethereum")
-                || mensagemNormalizada.contains("eth")
-                || mensagemNormalizada.contains("cripto")
-                || mensagemNormalizada.contains("criptomoeda");
-    }
 
     private String removerPontuacaoFinal(String palavra) {
         return palavra
