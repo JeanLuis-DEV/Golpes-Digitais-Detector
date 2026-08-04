@@ -22,6 +22,7 @@ public class AnalisadorConteudoMensagem {
             Pattern.CASE_INSENSITIVE
     );
     private Moedas tiposMoedas = new Moedas();
+
     public boolean contemAlgumTermo(String mensagem, List<String> termos) {
         for (String termo : termos) {
             if (mensagem.contains(termo)) {
@@ -58,11 +59,11 @@ public class AnalisadorConteudoMensagem {
     }
 
     public boolean contemPedidoDeValor(String mensagem) {
-            return VALOR_NUMERICO.matcher(mensagem).find()
-                    || contemAlgumTermo(
-                    mensagem,
-                    CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
-            );
+        return VALOR_NUMERICO.matcher(mensagem).find()
+                || contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_PEDIDO_DE_VALOR
+        );
     }
 
     public boolean contemDeclaracaoEnvioLegitimo(String mensagem) {
@@ -120,23 +121,23 @@ public class AnalisadorConteudoMensagem {
     }
 
     public boolean contemTransferenciaSuspeita(String mensagem) {
-       String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
-       boolean temPadraoSuspeito = mensagemNormalizada.contains("estou te mandando")
-               || mensagemNormalizada.contains("estou mandando")
-               || mensagemNormalizada.contains("estou te enviando");
+        String mensagemNormalizada = mensagem.toLowerCase(Locale.ROOT);
+        boolean temPadraoSuspeito = mensagemNormalizada.contains("estou te mandando")
+                || mensagemNormalizada.contains("estou mandando")
+                || mensagemNormalizada.contains("estou te enviando");
 
-       boolean temIndicadorTransferencia = contemIndicadoresTransferencia(mensagemNormalizada);
+        boolean temIndicadorTransferencia = contemIndicadoresTransferencia(mensagemNormalizada);
 
-       return temPadraoSuspeito && temIndicadorTransferencia;
+        return temPadraoSuspeito && temIndicadorTransferencia;
     }
 
     private boolean contemIndicadoresTransferencia(String mensagemNormalizada) {
-       return mensagemNormalizada.contains("pix")
-               || mensagemNormalizada.contains("transferencia")
-               || mensagemNormalizada.contains("transferir")
-               || mensagemNormalizada.contains("dinheiro")
-               || tiposMoedas.contemMoedas(mensagemNormalizada)
-               || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
+        return mensagemNormalizada.contains("pix")
+                || mensagemNormalizada.contains("transferencia")
+                || mensagemNormalizada.contains("transferir")
+                || mensagemNormalizada.contains("dinheiro")
+                || tiposMoedas.contemMoedas(mensagemNormalizada)
+                || VALOR_NUMERICO.matcher(mensagemNormalizada).find();
     }
 
 
