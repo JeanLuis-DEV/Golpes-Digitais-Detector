@@ -1,6 +1,6 @@
 package Modelos;
 
-public class Verificacoes{
+public class Verificacoes {
     Execucaoif execucao;
     MapMotivos motivos = new MapMotivos();
 
@@ -13,7 +13,7 @@ public class Verificacoes{
         DeclaracoesCondicionais condicoes = new DeclaracoesCondicionais(mensagemNormalizada);
 
         pontuacao += execucao.verificacao(condicoes.urgencia, 2,
-              motivos.getListaMotivos("urgencia"));
+                motivos.getListaMotivos("urgencia"));
 
         pontuacao += execucao.verificacao(condicoes.contemPremio, 2,
                 motivos.getListaMotivos("contemPremio"));

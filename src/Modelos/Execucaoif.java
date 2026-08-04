@@ -2,7 +2,7 @@ package Modelos;
 
 import java.util.ArrayList;
 
-public class Execucaoif implements Contem{
+public class Execucaoif implements Contem {
     private final ArrayList<String> motivos = new ArrayList<>();
 
     public ArrayList<String> getMotivos() {
