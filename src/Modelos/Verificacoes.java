@@ -72,6 +72,18 @@ public class Verificacoes {
         pontuacao += execucao.verificacao(condicoes.verificacaoIdentidade, 4,
                 motivos.getListaMotivos("verificacaoIdentidade"));
 
+        pontuacao += execucao.verificacao(condicoes.pressaoTemporalPix, 4,
+                motivos.getListaMotivos("pressaoTemporalPix"));
+
+        pontuacao += execucao.verificacao(condicoes.ameacaInformal, 4,
+                motivos.getListaMotivos("ameacaInformal"));
+
+        pontuacao += execucao.verificacao(condicoes.justificativaSuspeita, 4,
+                motivos.getListaMotivos("justificativaSuspeita"));
+
+        pontuacao += execucao.verificacao(condicoes.solicitacaoConfirmacaoImediata, 4,
+                motivos.getListaMotivos("solicitacaoConfirmacaoImediata"));
+
         return pontuacao;
     }
 }

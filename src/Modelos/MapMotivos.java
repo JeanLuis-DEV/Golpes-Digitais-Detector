@@ -26,6 +26,10 @@ public class MapMotivos {
         listaMotivos.put("pedidosValor", "A mensagem menciona um valor em dinheiro.");
         listaMotivos.put("pixEngano", "A mensagem solicita retorno de um valor enviado a ele por pix.");
         listaMotivos.put("verificacaoIdentidade", "A mensagem solicita enviar dados sensíveis para verificação");
+        listaMotivos.put("pressaoTemporalPix", "A mensagem solicita urgência mediante legitimidade");
+        listaMotivos.put("ameacaInformal", "A mensagem solicita urgência mediante ameaça");
+        listaMotivos.put("justificativaSuspeita", "A mensagem tenta passar legitimidade através de desculpa financeira");
+        listaMotivos.put("solicitacaoConfirmacaoImediata", "A mensagem solicita urgência sem tempo de análise ou confirmação");
     }
 
     public String getListaMotivos(String chave) {

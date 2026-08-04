@@ -24,6 +24,10 @@ public class DeclaracoesCondicionais {
     protected boolean acessoRemoto;
     protected boolean pixEngano;
     protected boolean verificacaoIdentidade;
+    protected boolean pressaoTemporalPix;
+    protected boolean ameacaInformal;
+    protected boolean justificativaSuspeita;
+    protected boolean solicitacaoConfirmacaoImediata;
 
     public DeclaracoesCondicionais(String mensagem) {
         AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
@@ -104,6 +108,25 @@ public class DeclaracoesCondicionais {
         verificacaoIdentidade = analisadorConteudo.contemAlgumTermo(
                 mensagem,
                 CatalogoTermosGolpe.TERMOS_VERIFICACAO_IDENTIDADE);
+
+        pressaoTemporalPix = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_PRESSAO_TEMPORAL_PIX);
+
+        ameacaInformal = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_AMEACA_INFORMAL
+        );
+
+        justificativaSuspeita = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_JUSTIFICATIVA_SUSPEITA
+        );
+
+        solicitacaoConfirmacaoImediata = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_SOLICITACAO_CONFIRMACAO_IMEDIATA
+        );
 
 
     }
