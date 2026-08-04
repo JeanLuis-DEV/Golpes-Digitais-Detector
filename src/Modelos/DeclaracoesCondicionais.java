@@ -1,5 +1,7 @@
 package Modelos;
 
+import javax.xml.catalog.Catalog;
+
 public class DeclaracoesCondicionais {
     protected boolean urgencia;
     protected boolean contemPremio;
@@ -21,6 +23,7 @@ public class DeclaracoesCondicionais {
     protected boolean investimentoSuspeito;
     protected boolean acessoRemoto;
     protected boolean pixEngano;
+    protected boolean verificacaoIdentidade;
 
     public DeclaracoesCondicionais(String mensagem) {
         AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
@@ -97,5 +100,11 @@ public class DeclaracoesCondicionais {
                 mensagem,
                 CatalogoTermosGolpe.TERMOS_PIX_ENGANO
         );
+
+        verificacaoIdentidade = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_VERIFICACAO_IDENTIDADE);
+
+
     }
 }
