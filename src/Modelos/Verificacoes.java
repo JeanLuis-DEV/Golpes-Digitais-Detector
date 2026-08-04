@@ -1,8 +1,35 @@
 package Modelos;
 
+import java.util.Map;
+
 public class Verificacoes {
     VerificadorMotivo execucao;
-    MapMotivos motivos = new MapMotivos();
+    MapMotivos motivos = Map.of("urgencia", "A mensagem tenta criar urgência.",
+        ("contemPremio", "A mensagem oferece prêmio ou dinheiro fácil.",
+        ("dadosPessoais", "A mensagem solicita dados pessoais ou bancários.",
+        ("contemLink", "A mensagem contém um link.",
+        ("transferenciaSuspeita", "A mensagem descreve uma transferência inesperada e merece verificação.",
+        ("promessaDinheiro_e_link", "A mensagem combina um link com uma promessa de dinheiro.",
+        ("pedidoAcao", "A mensagem solicita que a pessoa realize uma ação.",
+        ("arquivosPerigosos", "A mensagem contém um arquivo que pode executar programas maliciosos.",
+        ("solicitaTransferencia", "A mensagem solicita uma transferência de dinheiro.",
+        ("mudancaContato", "A mensagem informa uma mudança inesperada de contato.",
+        ("pedidoDinheiro", "A mensagem contém um pedido de dinheiro.",
+        ("pagamentoParaTerceiros", "O pagamento solicitado seria enviado para outra pessoa.",
+        ("ameacaBloqueio", "A mensagem ameaça bloquear ou suspender um serviço.",
+        ("falsaInstituicao", "A mensagem tenta se apresentar como uma instituição ou suporte.",
+        ("taxaAntecipada", "A mensagem cobra um valor antecipado para liberar algo.",
+        ("investimentoSuspeito", "A mensagem promete retorno financeiro fácil ou garantido.",
+        ("acessoRemoto", "A mensagem solicita acesso remoto ao dispositivo.",
+        ("pedidosValor", "A mensagem menciona um valor em dinheiro.",
+        ("pixEngano", "A mensagem solicita retorno de um valor enviado a ele por pix.",
+        ("verificacaoIdentidade", "A mensagem solicita enviar dados sensíveis para verificação",
+        ("pressaoTemporalPix", "A mensagem solicita urgência mediante legitimidade",
+        ("ameacaInformal", "A mensagem solicita urgência mediante ameaça",
+        ("justificativaSuspeita", "A mensagem tenta passar legitimidade através de desculpa financeira",
+        ("solicitacaoConfirmacaoImediata", "A mensagem solicita urgência sem tempo de análise ou confirmação",
+        ("comparecerEndereco", "A mensagem solicita o comparecimento em local que deve ser verificado pelo usuário");
+            
 
 
     public Verificacoes(VerificadorMotivo execucao) {
