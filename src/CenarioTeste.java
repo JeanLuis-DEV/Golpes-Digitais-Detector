@@ -343,6 +343,185 @@ public class CenarioTeste {
         executarTesteLeituraMultilinha(detector);
         executarTestesDeValidacao(detector);
 
+        // Novos cenários com TERMOS_VERIFICACAO_IDENTIDADE + outros termos
+        executarTeste(
+                detector,
+                "Validação de identidade com urgência",
+                "Você precisa validar sua identidade urgente para continuar usando a plataforma.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        executarTeste(
+                detector,
+                "Regularização de conta com pressão",
+                "Sua conta está com problemas. Regularize sua conta agora mesmo para não perder acesso.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Solicitação de confirmação de dados com urgência",
+                "Confirme suas informações para desbloquear sua conta urgente.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        executarTeste(
+                detector,
+                "Reativação de conta com link",
+                "Sua conta foi desativada. Reative sua conta clicando aqui https://www.reinicio-conta.com",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        // Novos cenários com TERMOS_PRESSAO_TEMPORAL_PIX + pedido de dinheiro
+        executarTeste(
+                detector,
+                "PIX com pressão temporal + pedido de valor",
+                "Mano, preciso disso hoje mesmo, nao consigo esperar. Consegue me emprestar 100 reais?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Empréstimo com urgência genuína",
+                "To em apuro mesmo, nao tenho tempo pra esperar. E uma emergencia, consegue me emprestar?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Pedido de valor com urgência e confirmação rápida",
+                "Preciso urgente de 150 reais. Nao posso esperar. Consegue me responder rapido?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        // Novos cenários com TERMOS_AMEACA_INFORMAL + outros termos
+        executarTeste(
+                detector,
+                "Ameaça de bloqueio em linguagem casual com urgência",
+                "Se nao conseguir fazer isso logo, vai dar ruim. Vai ficar irregular. Preciso urgente.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Ameaça de denuncia informal com transferência",
+                "Voce nao sabe o apuro que estou. Se nao me ajudar, vou ter que denunciar pro banco. Manda o pix.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Ameaça com pressão psicológica e pedido",
+                "Nao sabe como estou. Nao aguento mais. Se nao conseguir ajuda agora vai dar problema. Manda dinheiro.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Ameaça de deixar em nome do usuário + transferência",
+                "Se voce nao me ajudar, isso vai ficar em seu registro. Vai ficar em seu nome. Manda pro meu amigo.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        // Novos cenários com TERMOS_JUSTIFICATIVA_SUSPEITA + pedido
+        executarTeste(
+                detector,
+                "Desculpa de banco bloqueado + pedido",
+                "Meu banco bloqueou minha conta, por isso nao consigo transferir. Consegue me emprestar 200?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Problema com cartão + pix",
+                "Meu cartao foi cancelado e agora nao consigo sacar dinheiro. Consegue me mandar um pix de 100?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Limite excedido + urgência + pix",
+                "Passei meu limite de transferencia. Manda um pix pra mim urgente que amanha devolvo.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        executarTeste(
+                detector,
+                "Acesso expirado + pedido de valor",
+                "Meu acesso ao banco venceu, nao consigo mais transferir. Consegue me emprestar 200 reais?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        // Novos cenários com TERMOS_SOLICITACAO_CONFIRMACAO_IMEDIATA + outros
+        executarTeste(
+                detector,
+                "Pedido de confirmação rápida + urgência",
+                "Preciso saber agora, responde rapido. Consegue confirmar que recebeu? E urgente.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        executarTeste(
+                detector,
+                "Pressão por resposta imediata + pix",
+                "Me chama pra confirmar agora mesmo. Nao demore nao, preciso saber ja se conseguiu fazer o pix.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Pedido de confirmação com transferência",
+                "Responde rapido aqui. Consegue me mandar um pix? Me confirma quando conseguir fazer.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Urgência para confirmar transferência",
+                "Me avisa logo. Confirmacao se conseguiu fazer a transferencia pra mim urgente. Nao demora nao.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        // Cenários complexos combinando múltiplos termos novos + antigos
+        executarTeste(
+                detector,
+                "Validação + Pressão temporal + Ameaça + Urgência",
+                "Voce precisa validar sua identidade urgente. Se nao fizer agora vai dar problema serio. " +
+                "Confirma rapido pra mim. Nao posso esperar.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Justificativa + Pressão + PIX + Urgência",
+                "Meu banco bloqueou, nao consigo transferir. To em apuro mesmo, preciso de 300 reais hoje. " +
+                "Responde rapido, nao aguento esperar. Consegue me ajudar?",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Ameaça + Confirmação urgente + Transferência + Terceiro",
+                "Se nao fizer isso agora vai dar ruim mesmo. Me confirma logo. Manda esse pix pra mim ja pro amigo. " +
+                "Nao tenho tempo.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Verificação + Limite + PIX + Urgência",
+                "Voce precisa atualizar seus dados. Passei meu limite e nao consigo sacar. " +
+                "Consegue me emprestar 150 reais? Preciso urgente agora.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        executarTeste(
+                detector,
+                "Regularização + Ameaça + Urgência + Pedido",
+                "Regularize sua conta agora mesmo. Se deixar pro depois vai ficar irregular e vai dar problema. " +
+                "Preciso que isso seja feito hoje. Consegue me mandar um pix? Nao demora nao.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
         System.out.println("Todos os cenários passaram.");
     }
 
