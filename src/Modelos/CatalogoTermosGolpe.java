@@ -201,8 +201,9 @@ public final class CatalogoTermosGolpe {
             "preciso que devolva", "e meu dinheiro", "roubaram meu pix",
             "pix falso", "pix falsificado", "sem querer", "consegue me devolver",
             "consegue devolver", "manda pra min de volta",
-            "me devolve", "devolve rapidinho", "antes que o banco", 
-            "pra conta do meu amigo", "devolve agora", "devolve rapido"
+            "me devolve", "devolve rapidinho", "antes que o banco",
+            "pra conta do meu amigo", "devolve agora", "devolve rapido", "quero de volta",
+            "caiu um money"
     );
 
     public static final List<String> TERMOS_VERIFICACAO_IDENTIDADE = List.of(
