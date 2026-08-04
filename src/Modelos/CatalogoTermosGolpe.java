@@ -199,7 +199,63 @@ public final class CatalogoTermosGolpe {
             "paguei errado", "mandei errado", "mandei pra voce por engano",
             "chegou pra voce errado", "nao era pra ser seu",
             "preciso que devolva", "e meu dinheiro", "roubaram meu pix",
-            "pix falso", "pix falsificado", "sem querer", "consegue me devolver"
+            "pix falso", "pix falsificado", "sem querer", "consegue me devolver",
+            "consegue devolver", "manda pra min de volta",
+            "me devolve", "devolve rapidinho", "antes que o banco", 
+            "pra conta do meu amigo", "devolve agora", "devolve rapido"
+    );
+
+    public static final List<String> TERMOS_VERIFICACAO_IDENTIDADE = List.of(
+            "confirme seus dados", "valide sua identidade", "valide sua conta",
+            "valide seu cadastro", "atualize seu cadastro", "atualize seus dados",
+            "regularize sua conta", "desbloqueie sua conta", "libere seu acesso",
+            "ative sua conta", "reative sua conta", "confirme sua conta",
+            "confirme sua identidade", "verifique sua identidade",
+            "verifique sua conta", "atualize seus dados bancarios",
+            "atualize suas informacoes", "confirme suas informacoes",
+            "validacao de identidade", "verificacao de seguranca",
+            "verificacao de conta", "confirmacao de dados"
+    );
+
+    public static final List<String> TERMOS_PRESSAO_TEMPORAL_PIX = List.of(
+            "preciso hoje", "preciso urgente", "preciso agora",
+            "nao posso esperar", "nao tenho tempo", "e urgente mesmo",
+            "e serio", "nao e brincadeira", "apura mesmo",
+            "to em apuro", "estou em apuro", "e uma emergencia",
+            "nao aguento mais", "nao aguento de verdade",
+            "antes que seja tarde", "rapido que posso",
+            "o mais rapido possivel", "nao consigo esperar"
+    );
+
+    public static final List<String> TERMOS_AMEACA_INFORMAL = List.of(
+            "vai ficar irregular", "vai ficar suspenso", "vai ser bloqueado",
+            "vou ter que fazer denuncia", "vou ter que denunciar",
+            "vou ter que avisar o banco", "vou ter que avisar a policia",
+            "vai dar problema", "vai dar ruim", "vai dar merda",
+            "vai ficar em seu nome", "vai ficar em seu registro",
+            "voce nao sabe o apuro que estou", "nao sabe o que to passando",
+            "nao sabe como estou", "e meu ultimo recurso",
+            "se nao conseguir ajuda", "se nao conseguir fazer isso"
+    );
+
+    public static final List<String> TERMOS_JUSTIFICATIVA_SUSPEITA = List.of(
+            "meu banco bloqueou", "meu banco nao funciona",
+            "meu cartao nao passa", "meu pix nao funciona",
+            "problema com meu banco", "problema com meu pix",
+            "nao consigo sacar", "nao consigo transferir",
+            "minha conta esta travada", "minha conta esta bloqueada",
+            "meu cartao foi cancelado", "meu cartao foi bloqueado",
+            "passei o limite", "meu limite acabou",
+            "meu acesso expirou", "meu acesso venceu"
+    );
+
+    public static final List<String> TERMOS_SOLICITACAO_CONFIRMACAO_IMEDIATA = List.of(
+            "responde rapido", "me responde agora", "preciso saber agora",
+            "confirma pra mim", "confirma agora", "me avisa logo",
+            "me chama pra confirmar", "ligar pra confirmar",
+            "responde ja", "responde logo", "nao demore",
+            "nao demora nao", "da um toque logo", "da um sinal",
+            "me confirma", "confirma so", "confirma ai"
     );
 
     private CatalogoTermosGolpe() {

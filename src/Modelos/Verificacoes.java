@@ -69,6 +69,9 @@ public class Verificacoes {
         pontuacao += execucao.verificacao(condicoes.pixEngano, 4,
                 motivos.getListaMotivos("pixEngano"));
 
+        pontuacao += execucao.verificacao(condicoes.verificacaoIdentidade, 4,
+                motivos.getListaMotivos("verificacaoIdentidade"));
+
         return pontuacao;
     }
 }
