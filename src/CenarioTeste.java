@@ -1,6 +1,6 @@
-import Modelos.DetectorGolpes;
-import Modelos.LeitorMensagemConsole;
-import Modelos.ResultadoAnalise;
+import modelos.DetectorGolpes;
+import modelos.LeitorMensagemConsole;
+import modelos.ResultadoAnalise;
 
 import java.util.Scanner;
 
@@ -23,6 +23,52 @@ public class CenarioTeste {
                 "Mensagem segura com endereço de e-mail",
                 "Olá, meu e-mail para contato é atendimento@gmail.com",
                 "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        executarTesteComPontuacao(
+                detector,
+                "Palavras maiores não devem corresponder a termos parciais",
+                "Estou te mandando um documento realmente importante e completamente normal.",
+                "POSSIVELMENTE LEGÍTIMO",
+                0
+        );
+
+        executarTesteComPontuacao(
+                detector,
+                "Extensão apenas parecida com arquivo executável",
+                "Veja as fotos no arquivo.jardim",
+                "POSSIVELMENTE LEGÍTIMO",
+                0
+        );
+
+        executarTesteComPontuacao(
+                detector,
+                "Sigla CVC em contexto de viagem",
+                "A viagem foi comprada na CVC.",
+                "POSSIVELMENTE LEGÍTIMO",
+                0
+        );
+
+        executarTesteComPontuacao(
+                detector,
+                "Domínio entre parênteses e pontuação",
+                "Consulte o portal institucional (empresa.com.br).",
+                "POSSIVELMENTE LEGÍTIMO",
+                3
+        );
+
+        executarTeste(
+                detector,
+                "Declaração legítima de envio de PIX",
+                "Parabéns pelo seu aniversário, vou enviar um pix de 120 reais.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        executarTeste(
+                detector,
+                "Transferência suspeita com estou te mandando",
+                "Estou te mandando um pix de 50 reais para a conta do aluguel.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
         );
 
         executarTeste(
@@ -281,8 +327,26 @@ public class CenarioTeste {
         );
 
         executarTesteLeituraMultilinha(detector);
+        executarTestesDeValidacao(detector);
 
         System.out.println("Todos os cenários passaram.");
+    }
+
+    private static void executarTestesDeValidacao(DetectorGolpes detector) {
+        verificarMensagemInvalida(detector, null);
+        verificarMensagemInvalida(detector, " \n\t ");
+        verificarMensagemInvalida(detector, "\u2003");
+    }
+
+    private static void verificarMensagemInvalida(DetectorGolpes detector, String mensagem) {
+        try {
+            detector.analisar(mensagem);
+            throw new AssertionError("Era esperada uma IllegalArgumentException.");
+        } catch (IllegalArgumentException excecao) {
+            if (!"A mensagem não pode estar vazia.".equals(excecao.getMessage())) {
+                throw new AssertionError("Mensagem de validação inesperada.", excecao);
+            }
+        }
     }
 
     // Confere a leitura de mensagens coladas com várias linhas e espaços em branco.
@@ -325,6 +389,26 @@ public class CenarioTeste {
         if (!resultadoEsperado.equals(resultadoObtido)) {
             throw new AssertionError(
                     "Esperado: " + resultadoEsperado + " | Obtido: " + resultadoObtido
+            );
+        }
+    }
+
+    private static void executarTesteComPontuacao(
+            DetectorGolpes detector,
+            String nomeDoCenario,
+            String mensagem,
+            String resultadoEsperado,
+            int pontuacaoEsperada
+    ) {
+        ResultadoAnalise resultado = detector.analisar(mensagem);
+        System.out.println(nomeDoCenario + ": " + resultado.getNivelRisco());
+
+        if (!resultadoEsperado.equals(resultado.getNivelRisco())
+                || pontuacaoEsperada != resultado.getPontuacao()) {
+            throw new AssertionError(
+                    "Esperado: " + resultadoEsperado + " (" + pontuacaoEsperada + ")"
+                            + " | Obtido: " + resultado.getNivelRisco()
+                            + " (" + resultado.getPontuacao() + ")"
             );
         }
     }

@@ -1,19 +1,19 @@
-package Modelos;
+package modelos;
 
-import java.util.ArrayList;
+import java.util.List;
 
-// Representa o resultado final produzido pelo Modelos.DetectorGolpes.
-public class ResultadoAnalise {
+// Representa o resultado final produzido pelo DetectorGolpes.
+public final class ResultadoAnalise {
     // Guarda a classificação, a pontuação e os motivos encontrados.
     private final String nivelRisco;
     private final int pontuacao;
-    private final ArrayList<String> motivos;
+    private final List<String> motivos;
 
     // Recebe os valores calculados pelo detector e monta o resultado.
-    public ResultadoAnalise(String nivelRisco, int pontuacao, ArrayList<String> motivos) {
+    public ResultadoAnalise(String nivelRisco, int pontuacao, List<String> motivos) {
         this.nivelRisco = nivelRisco;
         this.pontuacao = pontuacao;
-        this.motivos = new ArrayList<>(motivos);
+        this.motivos = List.copyOf(motivos);
     }
 
     // Os métodos get permitem consultar os dados sem alterá-los.
@@ -25,8 +25,7 @@ public class ResultadoAnalise {
         return pontuacao;
     }
 
-    public ArrayList<String> getMotivos() {
-        // Retorna uma cópia para proteger a lista original do resultado.
-        return new ArrayList<>(motivos);
+    public List<String> getMotivos() {
+        return motivos;
     }
 }
