@@ -301,7 +301,7 @@ public final class CatalogoTermosGolpe {
             "paguei errado", "mandei errado", "mandei pra voce por engano",
             "chegou pra voce errado", "nao era pra ser seu",
             "preciso que devolva", "e meu dinheiro", "roubaram meu pix",
-            "pix falso", "pix falsificado"
+            "pix falso", "pix falsificado", "sem querer", "consegue me devolver"
     );
 
 >>>>>>> Caua:src/Modelos/CatalogoTermosGolpe.java
