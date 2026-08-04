@@ -84,6 +84,9 @@ public class Verificacoes {
         pontuacao += execucao.verificacao(condicoes.solicitacaoConfirmacaoImediata, 4,
                 motivos.getListaMotivos("solicitacaoConfirmacaoImediata"));
 
+        pontuacao += execucao.verificacao(condicoes.comparecerEndereco, 4,
+                motivos.getListaMotivos("comparecerEndereco"));
+
         return pontuacao;
     }
 }

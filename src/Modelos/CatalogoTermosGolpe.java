@@ -259,6 +259,27 @@ public final class CatalogoTermosGolpe {
             "me confirma", "confirma so", "confirma ai"
     );
 
+    public static final List<String> TERMOS_COMPARECER_ENDERECO = List.of(
+            "venha retirar", "compareça", "vem retirar", "va retirar",
+            "precisa vir aqui", "precisa vir", "vai ter que vir",
+            "tem que vir pessoalmente", "tem que aparecer aqui",
+            "tem que aparecer", "apareca aqui", "apareca no endereco",
+            "precisa aparecer", "precisa aparecer aqui",
+            "vem aqui", "vem nessa", "vem so", "chega aqui",
+            "chega no endereco", "passe por aqui", "passa por aqui",
+            "va ate aqui", "va ate o endereco", "va para o endereco",
+            "endereco tal", "na rua tal", "na avenida tal",
+            "na nossa loja", "na loja", "no endereco da loja",
+            "nos vemos", "a gente se ve", "se ve aqui",
+            "em pessoa", "pessoalmente", "direto na loja",
+            "vem buscar", "vem pegar", "vem receber",
+            "precisa vir buscar", "precisa vir pegar",
+            "venha cá", "vem ca", "vem para ca",
+            "ta te esperando aqui", "estou te esperando aqui",
+            "pode vir agora", "vem agora", "ja pode vir",
+            "pode vir ja", "venha logo", "vem logo"
+    );
+
     private CatalogoTermosGolpe() {
         // Impede a criação de instâncias de uma classe que contém apenas constantes.
     }

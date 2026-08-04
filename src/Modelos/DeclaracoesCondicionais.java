@@ -28,6 +28,7 @@ public class DeclaracoesCondicionais {
     protected boolean ameacaInformal;
     protected boolean justificativaSuspeita;
     protected boolean solicitacaoConfirmacaoImediata;
+    protected boolean comparecerEndereco;
 
     public DeclaracoesCondicionais(String mensagem) {
         AnalisadorConteudoMensagem analisadorConteudo = new AnalisadorConteudoMensagem();
@@ -128,6 +129,10 @@ public class DeclaracoesCondicionais {
                 CatalogoTermosGolpe.TERMOS_SOLICITACAO_CONFIRMACAO_IMEDIATA
         );
 
+        comparecerEndereco = analisadorConteudo.contemAlgumTermo(
+                mensagem,
+                CatalogoTermosGolpe.TERMOS_COMPARECER_ENDERECO
+        );
 
     }
 }
