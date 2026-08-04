@@ -26,6 +26,7 @@ public class MapMotivos {
         listaMotivos.put("pedidosValor", "A mensagem menciona um valor em dinheiro.");
         listaMotivos.put("pixEngano", "A mensagem solicita retorno de um valor enviado a ele por pix.");
     }
+
     public String getListaMotivos(String chave) {
         return listaMotivos.get(chave);
     }
