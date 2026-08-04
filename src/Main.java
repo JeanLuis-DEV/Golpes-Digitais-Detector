@@ -1,8 +1,13 @@
-import Modelos.ConsoleApp;
+import Modelos.TelaDetectorGolpes;
+
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public static void main(String[] args) {
-        new ConsoleApp().executar();
+        SwingUtilities.invokeLater(() -> {
+            TelaDetectorGolpes tela = new TelaDetectorGolpes();
+            tela.setVisible(true);
+        });
     }
 }
