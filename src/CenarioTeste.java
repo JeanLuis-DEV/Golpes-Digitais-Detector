@@ -1,128 +1,156 @@
-import modelos.DetectorGolpes;
-import modelos.ResultadoAnalise;
+import Modelos.DetectorGolpes;
+import Modelos.ResultadoAnalise;
 
-// Executa cenários conhecidos para conferir se as regras continuam funcionando.
+/**
+ * Executa testes básicos sem depender de bibliotecas externas.
+ */
 public class CenarioTeste {
+
     public static void main(String[] args) {
-        // O mesmo detector é reutilizado em todos os cenários.
         DetectorGolpes detector = new DetectorGolpes();
 
-        // Primeiro cenário: uma conversa normal deve apresentar risco baixo.
-        executarTeste(
+        testar(
                 detector,
-                "Mensagem segura",
+                "Mensagem comum",
                 "Olá, a reunião será amanhã às 14 horas.",
-                "BAIXO"
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Mensagem segura com endereço de e-mail",
-                "Olá, meu e-mail para contato é atendimento@gmail.com",
-                "BAIXO"
+                "E-mail comum",
+                "Olá, meu e-mail é atendimento@gmail.com",
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
-        // Demais cenários: diferentes exemplos de mensagens suspeitas.
-        executarTeste(
+        testar(
                 detector,
-                "Mensagem com sinais de alerta",
-                "Última chance! Você ganhou um prêmio.",
-                "MÉDIO"
+                "Palavra real dentro de palavra maior",
+                "Este documento é realmente importante.",
+                "POSSIVELMENTE LEGÍTIMO"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Mensagem com vários sinais de golpe",
+                "Extensão parecida com arquivo perigoso",
+                "Veja as fotos no arquivo.jardim",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Envio legítimo de PIX",
+                "Parabéns pelo aniversário, vou enviar um pix de 120 reais.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Senha e link com urgência",
                 "Urgente! Informe sua senha agora em https://site-desconhecido.com",
-                "ALTO"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Mensagem de prêmio com link disfarçado",
-                "Você acabou de ganhar um iphone, entre em contato agora mesmo pelo link: link.curto/premio",
-                "ALTO"
+                "Acesso remoto",
+                "Instale AnyDesk e compartilhe sua tela com o suporte.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Pedido de PIX para outra pessoa",
-                "Mãe, preciso de um dinheiro emprestado, manda pro PIX do meu amigo meupix@pix.com",
-                "ALTO"
+                "Número novo com pedido de PIX",
+                "Mãe, esse é meu número novo, manda um pix de 100 reais.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Empréstimo com PIX para prestador de serviço",
-                "Fala João, deu um problema com meu banco aqui, consegue me emprestar um dinheiro? "
-                        + "pode enviar direto pro mecânico meupix@email.com",
-                "ALTO"
+                "Falsa central",
+                "Somos da central antifraude. Confirme seus dados agora.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Pedido de PIX enviado diretamente para uma loja",
-                "Oi Tiago, meu cartão não está passando, consegue me mandar um pix, depois eu te pago, "
-                        + "pode mandar direto para a loja pixdaloja@gmail.com",
-                "ALTO"
+                "Prêmio com link",
+                "Você ganhou 500 reais. Acesse https://premio-facil.com",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
+        testar(
                 detector,
-                "Cadastro com prêmio imediato",
-                "Cadastre-se e ganhe 300 reais na hora premiofacil.com/premio",
-                "ALTO"
+                "Arquivo executável",
+                "Estou te enviando as fotos no arquivo imagens.exe",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
-        executarTeste(
-                detector,
-                "Falso vídeo em arquivo executável",
-                "Olá, amigo! Peguei sua esposa lhe traindo, estou te mandando o vídeo traição.exe",
-                "ALTO"
-        );
+        testarMensagemVazia(detector);
 
-        executarTeste(
-                detector,
-                "Pedido de voto com prêmio em dinheiro",
-                "Oiie, vote em mim no site TheBest e ganhe 50 reais premiacao.io",
-                "ALTO"
-        );
-
-        executarTeste(
-                detector,
-                "Prêmio em domínio estrangeiro",
-                "Última chance! Você ganhou um prêmio em premiointernacional.co",
-                "ALTO"
-        );
-
-        executarTeste(
-                detector,
-                "Mensagem com acentos usados para esconder o golpe",
-                "Ólá, précisó de ajúdá, me mándá úm píx, "
-                        + "mándá párá a cóntá dé úm ámígó píx@gmáíl.cóm",
-                "ALTO"
-        );
-
+        System.out.println();
         System.out.println("Todos os cenários passaram.");
     }
 
-    // Analisa uma mensagem e compara o resultado obtido com o resultado esperado.
-    private static void executarTeste(
+    private static void testar(
             DetectorGolpes detector,
-            String nomeDoCenario,
+            String nome,
             String mensagem,
             String resultadoEsperado
     ) {
-        ResultadoAnalise resultado = detector.analisar(mensagem);
-        String resultadoObtido = resultado.getNivelRisco();
+        ResultadoAnalise resultado =
+                detector.analisar(mensagem);
 
-        System.out.println(nomeDoCenario + ": " + resultadoObtido);
+        System.out.println(
+                nome
+                        + ": "
+                        + resultado.nivelRisco()
+                        + " | Pontuação: "
+                        + resultado.pontuacao()
+        );
 
-        // Interrompe o teste e informa o erro caso a classificação esteja incorreta.
-        if (!resultadoEsperado.equals(resultadoObtido)) {
+        if (!resultadoEsperado.equals(
+                resultado.nivelRisco()
+        )) {
             throw new AssertionError(
-                    "Esperado: " + resultadoEsperado + " | Obtido: " + resultadoObtido
+                    "Teste: " + nome
+                            + System.lineSeparator()
+                            + "Esperado: "
+                            + resultadoEsperado
+                            + System.lineSeparator()
+                            + "Obtido: "
+                            + resultado.nivelRisco()
+                            + System.lineSeparator()
+                            + "Pontuação: "
+                            + resultado.pontuacao()
+                            + System.lineSeparator()
+                            + "Motivos: "
+                            + resultado.motivos()
             );
+        }
+    }
+
+    private static void testarMensagemVazia(
+            DetectorGolpes detector
+    ) {
+        try {
+            detector.analisar("   ");
+
+            throw new AssertionError(
+                    "Era esperada uma IllegalArgumentException."
+            );
+        } catch (IllegalArgumentException excecao) {
+            String mensagemEsperada =
+                    "A mensagem não pode estar vazia.";
+
+            if (!mensagemEsperada.equals(
+                    excecao.getMessage()
+            )) {
+                throw new AssertionError(
+                        "Mensagem de validação inesperada: "
+                                + excecao.getMessage()
+                );
+            }
         }
     }
 }
