@@ -167,7 +167,7 @@ public class CenarioTeste {
                 detector,
                 "Falsa central solicitando confirmação",
                 "Somos da central antifraude. Confirme seus dados agora.",
-                "SUSPEITO(VERIFIQUE A FONTE)"
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         executarTeste(
