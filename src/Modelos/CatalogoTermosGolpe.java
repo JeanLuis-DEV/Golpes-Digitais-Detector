@@ -165,6 +165,146 @@ public final class CatalogoTermosGolpe {
             ".shop", ".live", ".click", ".link", ".me", ".tv", ".cc", ".tk"
     );
 
+<<<<<<< HEAD:src/modelos/CatalogoTermosGolpe.java
+=======
+    public static final List<String> PEDIDOS_DE_ACAO = List.of(
+            "vote em mim", "vote neste", "clique para votar", "cadastre-se",
+            "retorne nesse contato", "retorne neste contato", "retorne o contato",
+            "entre em contato", "responda essa mensagem", "responda esta mensagem",
+            "chame no numero", "ligue para", "ligue", "me chama", "para resgatar",
+            "pra resgatar", "resgate agora", "da um alo", "chama no zap",
+            "me da um toque", "pra pegar", "para pegar",
+            "confirme agora", "confirme seus dados", "confirme sua conta",
+            "atualize seus dados", "atualize seu cadastro", "regularize sua conta",
+            "desbloqueie sua conta", "libere seu acesso", "ative sua conta",
+            "valide sua identidade", "valide seu cadastro", "fale comigo",
+            "fala comigo", "chama aqui", "chama privado", "chama no privado",
+            "me chama no privado", "manda mensagem", "mande mensagem",
+            "responde aqui", "retorna aqui", "me liga", "liga pra mim",
+            "salva esse numero", "adicione este numero"
+    );
+
+    public static final List<String> ARQUIVOS_PERIGOSOS = List.of(
+            ".exe", ".bat", ".cmd", ".scr", ".msi", ".jar", ".apk",
+            ".vbs", ".ps1", ".hta", ".pif", ".cpl", ".reg", ".wsf",
+            ".gadget", ".application"
+    );
+
+    public static final List<String> TERMOS_TRANSFERENCIA = List.of(
+            "pix", "transferencia", "deposito", "ted", "doc bancario",
+            "boleto", "pagar boleto", "pagamento", "transferir", "transfere",
+            "transfira", "depositar", "deposite", "mandar valor", "enviar valor",
+            "chave pix", "copia e cola", "qr code pix", "pix copia e cola",
+            "carteira digital", "recarga", "gift card", "cartao presente"
+    );
+
+    public static final List<String> TERMOS_MUDANCA_CONTATO = List.of(
+            "esse e meu numero novo", "este e meu numero novo",
+            "meu novo numero", "troquei de numero", "mudei de numero",
+            "perdi meu zap antigo", "perdi meu whatsapp antigo",
+            "meu cel foi pro saco", "meu celular foi pro saco",
+            "aparelho de um parceiro", "aparelho de uma parceira",
+            "troca meu contato", "troque meu contato",
+            "numero antigo nao funciona", "nao uso mais o outro numero",
+            "apaga meu numero antigo", "salva meu contato novo",
+            "estou com outro chip", "to com outro chip", "celular quebrou",
+            "celular estragou", "perdi meu celular", "roubaram meu celular",
+            "estou usando outro aparelho", "to usando outro aparelho",
+            "contato temporario", "whatsapp novo", "zap novo"
+    );
+
+    public static final List<String> PEDIDOS_DE_DINHEIRO = List.of(
+            "dinheiro emprestado", "preciso de dinheiro", "emprestar", "empresta",
+            "manda dinheiro", "mande dinheiro", "mandar um pix", "manda um pix",
+            "fazer um pix", "faz um pix", "depois eu te pago",
+            "me ajuda com dinheiro", "me ajuda com uma grana", "quebra essa pra mim",
+            "faz essa pra mim", "to precisando de uma grana", "preciso de uma ajuda",
+            "preciso pagar uma conta", "estou sem dinheiro", "to sem dinheiro",
+            "adianta um valor", "adianta uma grana", "empresta uma grana",
+            "manda uma ajuda", "faz um deposito", "paga pra mim"
+    );
+
+    public static final List<String> TERMOS_PEDIDO_DE_VALOR = List.of(
+            "manda", "mande", "envie", "pague", "apoiar", "apoie",
+            "empresta", "empreste", "quebra", "adianta", "adiantar",
+            "acerta", "taxinha de", "forca de", "faz a boa de", "entrar com",
+            "contribui", "contribua", "colabora", "colabore", "desembolsa",
+            "completa", "cobre", "banca", "antecipa", "antecipe",
+            "faz chegar", "manda ai", "manda pra ca", "libera", "paga"
+    );
+
+    public static final List<String> PAGAMENTO_PARA_TERCEIROS = List.of(
+            "pix do meu amigo", "pix de um amigo", "conta do meu amigo", "conta de um amigo",
+            "conta de outra pessoa",
+            "enviar direto pro", "enviar direto para", "mandar direto pro", "mandar direto para",
+            "manda pro", "manda para", "mandar para", "direto para a loja",
+            "conta do meu primo", "conta de um primo", "conta da minha prima",
+            "conta de uma prima", "pix do meu parente", "pix de um parente",
+            "conta do fornecedor", "conta do entregador", "conta do motoboy",
+            "pix do vendedor", "pix da loja", "chave de outra pessoa",
+            "titular diferente", "nome de outra pessoa", "conta de terceiro"
+    );
+
+    public static final List<String> TERMOS_AMEACA_OU_BLOQUEIO = List.of(
+            "conta bloqueada", "conta sera bloqueada", "conta suspensa",
+            "acesso suspenso", "cartao bloqueado", "cartao sera cancelado",
+            "cadastro irregular", "cadastro pendente", "cpf irregular",
+            "cpf suspenso", "beneficio suspenso", "beneficio sera cancelado",
+            "multa pendente", "divida pendente", "pagamento recusado",
+            "compra suspeita", "transacao suspeita", "acesso nao reconhecido",
+            "dispositivo desconhecido", "tentativa de acesso"
+    );
+
+    public static final List<String> TERMOS_FALSA_INSTITUICAO = List.of(
+            "central de seguranca", "central antifraude", "setor antifraude",
+            "equipe de seguranca", "suporte tecnico", "suporte do banco",
+            "gerente da conta", "atendimento bancario", "representante do banco",
+            "somos do banco", "falo em nome do banco", "equipe do pix",
+            "central do cartao", "operadora do cartao", "receita federal",
+            "correios informa", "mercado pago informa", "nubank informa",
+            "caixa informa", "banco central informa"
+    );
+
+    public static final List<String> TERMOS_TAXA_ANTECIPADA = List.of(
+            "taxa de liberacao", "taxa para liberar", "pague a taxa",
+            "pagamento antecipado", "deposito antecipado", "taxa administrativa",
+            "taxa de cadastro", "taxa de envio", "taxa de entrega",
+            "taxa alfandegaria", "taxa dos correios", "taxa do premio",
+            "custo de desbloqueio", "valor para liberar", "pagar para receber",
+            "liberacao mediante pagamento", "frete pendente", "encomenda retida",
+            "pacote retido", "pedido retido"
+    );
+
+    public static final List<String> TERMOS_INVESTIMENTO_SUSPEITO = List.of(
+            "lucro garantido", "retorno garantido", "renda garantida",
+            "ganho garantido", "investimento sem risco", "renda extra imediata",
+            "dinheiro automatico", "multiplique seu dinheiro", "dobre seu dinheiro",
+            "triplique seu dinheiro", "investimento secreto", "metodo infalivel",
+            "robô de investimento", "robo de investimento", "sinais premium",
+            "grupo vip de investimento", "rentabilidade garantida",
+            "ganhe por dia", "saque imediato", "oportunidade imperdivel"
+    );
+
+    public static final List<String> TERMOS_ACESSO_REMOTO = List.of(
+            "instale anydesk", "baixe anydesk", "abra o anydesk",
+            "instale teamviewer", "baixe teamviewer", "abra o teamviewer",
+            "instale rustdesk", "baixe rustdesk", "acesso remoto",
+            "controle remoto", "compartilhe sua tela", "compartilhar a tela",
+            "mostre sua tela", "espelhe sua tela", "permita o acesso",
+            "codigo do anydesk", "id do teamviewer", "senha do acesso remoto",
+            "aplicativo de suporte", "app de suporte"
+    );
+    public static final List<String> TERMOS_PIX_ENGANO = List.of(
+            "chegou um pix", "pix errado", "pix por engano",
+            "manda de volta", "me devolva", "devolve o pix",
+            "transferencia por engano", "transferencia errada",
+            "paguei errado", "mandei errado", "mandei pra voce por engano",
+            "chegou pra voce errado", "nao era pra ser seu",
+            "preciso que devolva", "e meu dinheiro", "roubaram meu pix",
+            "pix falso", "pix falsificado"
+    );
+
+>>>>>>> Caua:src/Modelos/CatalogoTermosGolpe.java
     private CatalogoTermosGolpe() {
     }
 }
