@@ -1,4 +1,4 @@
-package modelos;
+package Modelos;
 
 // Converte a pontuação calculada em um nível de risco.
 public final class ClassificadorRisco {

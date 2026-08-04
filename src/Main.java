@@ -1,7 +1,7 @@
-import modelos.DetectorGolpes;
-import modelos.InterfaceConsole;
-import modelos.LeitorMensagemConsole;
-import modelos.ResultadoAnalise;
+import Modelos.DetectorGolpes;
+import Modelos.InterfaceConsole;
+import Modelos.LeitorMensagemConsole;
+import Modelos.ResultadoAnalise;
 
 import java.util.List;
 import java.util.Scanner;

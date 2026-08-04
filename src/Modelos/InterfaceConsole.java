@@ -1,4 +1,4 @@
-package modelos;
+package Modelos;
 
 // Organiza a apresentação visual do programa no terminal.
 public final class InterfaceConsole {
