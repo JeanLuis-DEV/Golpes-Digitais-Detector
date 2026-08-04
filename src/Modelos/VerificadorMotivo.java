@@ -3,7 +3,7 @@ package Modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Execucaoif implements Contem {
+public class VerificadorMotivo implements Verificador {
     private final List<String> motivos = new ArrayList<>();
 
     public List<String> getMotivos() {

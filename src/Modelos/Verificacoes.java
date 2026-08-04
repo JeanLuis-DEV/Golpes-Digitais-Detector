@@ -1,11 +1,11 @@
 package Modelos;
 
 public class Verificacoes {
-    Execucaoif execucao;
+    VerificadorMotivo execucao;
     MapMotivos motivos = new MapMotivos();
 
 
-    public Verificacoes(Execucaoif execucao) {
+    public Verificacoes(VerificadorMotivo execucao) {
         this.execucao = execucao;
     }
 

@@ -1,7 +1,5 @@
 package Modelos;
 
-import java.util.ArrayList;
-
-public interface Contem {
+public interface Verificador {
     int verificacao(Boolean condicaoTermo, int pontosDeteccao, String motivo);
 }
