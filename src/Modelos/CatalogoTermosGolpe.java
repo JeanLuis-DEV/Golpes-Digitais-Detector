@@ -119,11 +119,13 @@ public final class CatalogoTermosGolpe {
             "faz essa pra mim", "to precisando de uma grana", "preciso de uma ajuda",
             "preciso pagar uma conta", "estou sem dinheiro", "to sem dinheiro",
             "adianta um valor", "adianta uma grana", "empresta uma grana",
-            "manda uma ajuda", "faz um deposito", "paga pra mim"
+            "manda uma ajuda", "faz um deposito", "paga pra mim", "manda",
+            "mande", "manda ai", "mandar", "me manda"
     );
 
     public static final List<String> TERMOS_PEDIDO_DE_VALOR = List.of(
-            "manda", "mande", "envie", "pague", "apoiar", "apoie",
+            "manda", "mande", "manda ai", "mandar", "me manda",
+            "envie", "pague", "apoiar", "apoie",
             "empresta", "empreste", "quebra", "adianta", "adiantar",
             "acerta", "taxinha de", "forca de", "faz a boa de", "entrar com",
             "contribui", "contribua", "colabora", "colabore", "desembolsa",
@@ -260,7 +262,7 @@ public final class CatalogoTermosGolpe {
     );
 
     public static final List<String> TERMOS_COMPARECER_ENDERECO = List.of(
-            "venha retirar", "compareça", "vem retirar", "va retirar",
+            "venha retirar", "compareca", "vem retirar", "va retirar",
             "precisa vir aqui", "precisa vir", "vai ter que vir",
             "tem que vir pessoalmente", "tem que aparecer aqui",
             "tem que aparecer", "apareca aqui", "apareca no endereco",

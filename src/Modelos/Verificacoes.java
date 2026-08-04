@@ -43,7 +43,7 @@ public class Verificacoes {
                 motivos.getListaMotivos("mudancaContato"));
 
         pontuacao += execucao.verificacao(!condicoes.transferenciaSuspeita && !condicoes.declaracaoEnvioLegitimo
-                && (condicoes.pedidosDinheiro || condicoes.pedidosValor), 4, motivos.getListaMotivos("pedidoDinheiro"));
+                && condicoes.pedidosValor && condicoes.pedidosDinheiro, 4, motivos.getListaMotivos("pedidoDinheiro"));
 
         pontuacao += execucao.verificacao(condicoes.pagamentoParaTerceiros, 2,
                 motivos.getListaMotivos("pagamentoParaTerceiros"));
@@ -84,7 +84,7 @@ public class Verificacoes {
         pontuacao += execucao.verificacao(condicoes.solicitacaoConfirmacaoImediata, 4,
                 motivos.getListaMotivos("solicitacaoConfirmacaoImediata"));
 
-        pontuacao += execucao.verificacao(condicoes.comparecerEndereco, 4,
+        pontuacao += execucao.verificacao(condicoes.comparecerEndereco, 2,
                 motivos.getListaMotivos("comparecerEndereco"));
 
         return pontuacao;
