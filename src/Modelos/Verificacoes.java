@@ -4,11 +4,13 @@ public class Verificacoes {
     Execucaoif execucao;
     MapMotivos motivos = new MapMotivos();
 
+
     public Verificacoes(Execucaoif execucao) {
         this.execucao = execucao;
     }
 
     public int contemTermos(String mensagemNormalizada) {
+
         int pontuacao = 0;
         DeclaracoesCondicionais condicoes = new DeclaracoesCondicionais(mensagemNormalizada);
 

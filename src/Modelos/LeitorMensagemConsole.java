@@ -6,7 +6,7 @@ import java.util.Scanner;
 public final class LeitorMensagemConsole {
     private static final String COMANDO_FINALIZAR = "FIM";
 
-    public String ler(Scanner scanner) {
+    public static String ler(Scanner scanner) {
         StringBuilder mensagem = new StringBuilder();
 
         while (scanner.hasNextLine()) {

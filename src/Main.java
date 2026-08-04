@@ -11,12 +11,11 @@ public class Main {
     public static void main(String[] args) {
         // O Scanner lê o texto digitado. O leitor reúne todas as linhas da mensagem.
         try (Scanner scanner = new Scanner(System.in)) {
-            LeitorMensagemConsole leitorMensagem = new LeitorMensagemConsole();
             InterfaceConsole interfaceConsole = new InterfaceConsole();
             DetectorGolpes detector = new DetectorGolpes();
             // Exibe a apresentação e solicita a mensagem.
             interfaceConsole.exibirPainelInicial();
-            String mensagem = leitorMensagem.ler(scanner);
+            String mensagem = LeitorMensagemConsole.ler(scanner);
             // Impede que uma mensagem vazia seja enviada para análise.
             if (mensagem.isBlank()) {
                 System.out.println("A mensagem não pode estar vazia.");

@@ -1,7 +1,5 @@
 package Modelos;
 
-import javax.xml.catalog.Catalog;
-
 public class DeclaracoesCondicionais {
     protected boolean urgencia;
     protected boolean contemPremio;
