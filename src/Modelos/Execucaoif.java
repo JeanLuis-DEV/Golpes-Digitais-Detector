@@ -1,12 +1,13 @@
 package Modelos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Execucaoif implements Contem {
-    private final ArrayList<String> motivos = new ArrayList<>();
+    private final List<String> motivos = new ArrayList<>();
 
-    public ArrayList<String> getMotivos() {
-        return motivos;
+    public List<String> getMotivos() {
+        return List.copyOf(this.motivos);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Modelos;
 
 // Converte a pontuação calculada em um nível de risco.
-public class ClassificadorRisco {
+public final class ClassificadorRisco {
     private static final int LIMITE_RISCO_MEDIO = 4;
     private static final int LIMITE_RISCO_ALTO = 7;
 

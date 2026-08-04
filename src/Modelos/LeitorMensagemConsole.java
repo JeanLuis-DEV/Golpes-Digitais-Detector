@@ -3,10 +3,10 @@ package Modelos;
 import java.util.Scanner;
 
 // Lê mensagens com uma ou várias linhas pelo terminal.
-public class LeitorMensagemConsole {
+public final class LeitorMensagemConsole {
     private static final String COMANDO_FINALIZAR = "FIM";
 
-    public String ler(Scanner scanner) {
+    public static String ler(Scanner scanner) {
         StringBuilder mensagem = new StringBuilder();
 
         while (scanner.hasNextLine()) {
