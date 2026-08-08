@@ -1,5 +1,13 @@
+import Modelos.TelaDetectorGolpes;
+
+import javax.swing.SwingUtilities;
+
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("Bem vindo ao Detector de Golpes Digitais!");
+        SwingUtilities.invokeLater(() -> {
+            TelaDetectorGolpes tela = new TelaDetectorGolpes();
+            tela.setVisible(true);
+        });
     }
 }
