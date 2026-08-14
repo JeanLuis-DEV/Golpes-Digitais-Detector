@@ -53,6 +53,20 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Cartão bloqueado com solicitação de imagem",
+                "Seu cartão foi bloqueado, envie a foto frente e verso do cartão.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Solicitação de dados sensíveis do cartão",
+                "Mande o CVV do cartão e uma foto do verso para validação.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
                 "Acesso remoto",
                 "Instale AnyDesk e compartilhe sua tela com o suporte.",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
