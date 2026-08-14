@@ -1,62 +1,129 @@
 # Detector de Golpes Digitais
 
-Breve descrição
+Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de golpes digitais. O projeto combina normalização de texto, regras de negócio e um catálogo de padrões suspeitos para apresentar um nível de risco, a pontuação calculada e os motivos encontrados.
 
-Projeto em Java que analisa mensagens de texto (uma ou várias linhas) para identificar sinais comuns de golpes digitais. O detector normaliza o texto, busca termos e padrões suspeitos e atribui uma pontuação que é convertida em um nível de risco.
+> O resultado é um alerta de apoio à decisão. Nenhuma classificação substitui a verificação da fonte, do canal oficial da instituição e dos dados envolvidos.
 
-Objetivo
+## Funcionalidades
 
-Ajudar a identificar automaticamente mensagens potencialmente fraudulentas, oferecendo indicação de risco e motivos detectados para facilitar a verificação manual.
+- Interface gráfica desktop para colar, analisar e limpar mensagens.
+- Normalização de maiúsculas, minúsculas e acentos, reduzindo tentativas simples de ocultar palavras suspeitas.
+- Classificação em três níveis: `POSSIVELMENTE LEGÍTIMO`, `SUSPEITO` e `POSSIVELMENTE GOLPE`.
+- Pontuação transparente e lista dos motivos que levaram ao resultado.
+- Identificação de sinais como:
+  - urgência, pressão temporal e pedidos de confirmação imediata;
+  - links, domínios e arquivos potencialmente perigosos;
+  - solicitação de senhas, códigos, documentos, dados bancários e imagens de cartão;
+  - cartão bloqueado, uso não reconhecido, clonagem e tentativas de fraude;
+  - pedidos de PIX, transferências, taxas antecipadas e pagamentos para terceiros;
+  - falsas centrais de atendimento, bloqueios de conta e verificação de identidade;
+  - acesso remoto, investimentos com retorno garantido e o golpe do PIX por engano.
+- Cenários automatizados de regressão para validar comportamentos conhecidos.
 
-Funcionalidades principais
+## Como a análise funciona
 
-- Normalização de texto (remoção de acentos e caixa baixa).
-- Detecção de links, domínios e padrões de valores monetários.
-- Conjunto extenso de listas de termos (urgência, prêmio, pedido de dados, transferência, acesso remoto etc.).
-- Regras que somam pontos por sinais encontrados e classificam o risco (baixo, suspeito, possivelmente golpe).
-- Saída com nível de risco, pontuação e lista de motivos detectados.
+1. A mensagem é validada e normalizada.
+2. O detector procura palavras, frases, links, domínios, valores monetários e extensões de arquivo.
+3. Regras simples e compostas atribuem pontos para cada sinal encontrado.
+4. A soma é convertida em uma classificação de risco:
 
-Principais arquivos
+| Pontuação | Classificação |
+| --- | --- |
+| 0 a 3 | POSSIVELMENTE LEGÍTIMO |
+| 4 a 6 | SUSPEITO |
+| 7 ou mais | POSSIVELMENTE GOLPE |
 
-- src\Main.java — ponto de entrada (interface por console).
-- src\CenarioTeste.java — casos de teste / validação.
-- src\Modelos\DetectorGolpes.java — coordena a análise.
-- src\Modelos\NormalizadorMensagem.java — normaliza o texto.
-- src\Modelos\AnalisadorConteudoMensagem.java — procura termos, links e valores.
-- src\Modelos\CatalogoTermosGolpe.java — listas de termos e domínios.
-- src\Modelos\Verificacoes.java — aplica regras e pontuações.
-- src\Modelos\Execucaoif.java, MapMotivos.java, DeclaracoesCondicionais.java — utilidades para registro de motivos e verificação.
-- src\Modelos\LeitorMensagemConsole.java, InterfaceConsole.java — leitura de entrada e apresentação.
+Exemplo de mensagem identificada como alto risco:
 
-Tecnologias
+```text
+Seu cartão foi bloqueado, envie a foto frente e verso do cartão.
+```
 
-- Java 11+ (apenas biblioteca padrão).
+Ela reúne um alerta sobre cartão e a solicitação de dados sensíveis, alcançando a pontuação necessária para uma recomendação de cautela máxima.
 
-Como compilar e executar
+## Tecnologias e recursos
 
-1) Compilar todos os fontes (a partir da raiz do projeto):
+- **Java 17+**
+- **Swing/AWT** para a interface gráfica desktop
+- **Java Collections** (`List`, `ArrayList`) para catálogo de termos e motivos
+- **Regex** (`Pattern`) para valores monetários, e-mails, extensões e busca de termos
+- **Normalizer** para remoção de acentos
+- **Records** para representar regras e resultados de forma imutável
+- Apenas bibliotecas da **JDK**: não há dependências externas
 
-   javac -d out src\**\*.java
+## Estrutura do projeto
 
-2) Executar o programa principal:
+```text
+src/
+├── Main.java                         # Inicialização da interface gráfica
+├── CenarioTeste.java                 # Cenários de validação sem dependências externas
+└── Modelos/
+    ├── TelaDetectorGolpes.java       # Interface Swing
+    ├── DetectorGolpes.java           # Orquestra a análise e a pontuação
+    ├── AnalisadorMensagem.java       # Normalização e identificação de padrões
+    ├── CatalogoGolpes.java           # Termos e regras de detecção
+    ├── RegraGolpe.java               # Modelo imutável de uma regra
+    ├── ResultadoAnalise.java         # Resultado da análise
+    └── ConsoleApp.java               # Alternativa de interação pelo terminal
+```
 
-   java -cp out Main
+## Como executar
 
-   - Cole ou digite a mensagem e encerre com uma linha contendo apenas: FIM
+### Pré-requisito
 
-3) Executar cenários de teste (opcional):
+Instale o JDK 17 ou superior e confirme a instalação:
 
-   java -cp out CenarioTeste
+```powershell
+java -version
+javac -version
+```
 
-Observações
+### Compilar e abrir a interface
 
-- O detector é baseado em regras e listas de termos — não substitui análise humana ou soluções de detecção baseadas em ML.
-- Para aprimorar: permitir carregar listas de termos externas, ajustar pesos, criar testes automatizados e empacotar como JAR.
+No PowerShell, a partir da raiz do projeto:
 
-Contribuição
+```powershell
+New-Item -ItemType Directory -Force -Path out | Out-Null
+javac --release 17 -encoding UTF-8 -d out (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
+java -cp out Main
+```
 
-Pull requests são bem-vindos. Abra uma issue descrevendo a melhoria antes de mudanças significativas.
+Cole ou digite uma mensagem, clique em **Analisar mensagem** e confira a classificação, a pontuação e os sinais detectados.
 
-Licença
+## Executar os cenários de teste
 
-Use conforme sua necessidade (adicione uma licença explícita se desejar).
+Após compilar o projeto, execute:
+
+```powershell
+java -cp out CenarioTeste
+```
+
+Os cenários cobrem mensagens comuns, links, arquivos perigosos, acesso remoto, transferências, pedidos de dados sensíveis e bloqueio de cartão.
+
+## Limitações e uso responsável
+
+O detector utiliza heurísticas baseadas em regras. Portanto, uma mensagem legítima pode receber alerta e uma fraude inédita pode não conter termos conhecidos. Antes de enviar dinheiro, códigos, documentos ou imagens de cartão:
+
+- confirme a solicitação usando um canal oficial e independente;
+- não clique em links recebidos por mensagens inesperadas;
+- não compartilhe senhas, códigos de autenticação, CVV, fotos de cartão ou documentos;
+- procure diretamente o aplicativo, site ou telefone oficial da instituição.
+
+## Créditos
+
+**Criadores do projeto**
+
+- Jean Luis Machado
+- Cauã G. Fernandes
+
+**Revisão de código:** ChatGPT
+
+**Melhorias sugeridas por IA.**
+
+## Contribuições
+
+Contribuições são bem-vindas. Para adicionar regras, priorize expressões específicas, inclua um cenário em `CenarioTeste.java` e confirme que os casos existentes continuam aprovados.
+
+## Licença
+
+O projeto ainda não possui uma licença declarada. Antes de reutilizá-lo ou distribuí-lo, defina uma licença adequada no repositório.
