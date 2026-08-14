@@ -263,6 +263,28 @@ public final class CatalogoGolpes {
             "bloqueio imediato do cartao"
     );
 
+    // Orientações que indicam que a pessoa deve confirmar a informação fora da mensagem.
+    public static final List<String> TERMOS_CANAL_OFICIAL = List.of(
+            "canal oficial",
+            "site oficial",
+            "aplicativo oficial",
+            "app oficial",
+            "central oficial",
+            "telefone oficial",
+            "numero oficial",
+            "agencia oficial",
+            "procure o canal oficial",
+            "acesse o canal oficial",
+            "consulte o site oficial",
+            "use o aplicativo oficial",
+            "entre pelo aplicativo",
+            "abra o aplicativo do banco",
+            "nao clique em links",
+            "nao clique no link",
+            "digite o endereco do banco",
+            "consulte diretamente o banco"
+    );
+
     public static final List<String> INDICIOS_LINK = List.of(
             "http://",
             "https://",
@@ -323,6 +345,106 @@ public final class CatalogoGolpes {
             ".tv",
             ".cc",
             ".tk"
+    );
+
+    /**
+     * Domínios oficiais cadastrados. Subdomínios também são aceitos, por
+     * exemplo, "ofertas.mercadolivre.com.br".
+     */
+    public static final List<String> DOMINIOS_OFICIAIS = List.of(
+            "bb.com.br",
+            "itau.com.br",
+            "bradesco.com.br",
+            "santander.com.br",
+            "caixa.gov.br",
+            "nubank.com.br",
+            "bancointer.com.br",
+            "c6bank.com.br",
+            "btgpactual.com",
+            "sicredi.com.br",
+            "sicoob.com.br",
+            "banrisul.com.br",
+            "banestes.com.br",
+            "bancopan.com.br",
+            "original.com.br",
+            "next.me",
+            "neon.com.br",
+            "willbank.com.br",
+            "pagbank.com.br",
+            "picpay.com",
+            "mercadopago.com.br",
+            "stone.com.br",
+            "infinitepay.io",
+            "recargapay.com.br",
+            "mercadolivre.com",
+            "mercadolivre.com.br",
+            "amazon.com",
+            "amazon.com.br",
+            "shopee.com",
+            "shopee.com.br",
+            "magazineluiza.com.br",
+            "magalu.com",
+            "casasbahia.com.br",
+            "ponto.com.br",
+            "americanas.com.br",
+            "kabum.com.br",
+            "aliexpress.com",
+            "shein.com",
+            "temu.com",
+            "olx.com.br",
+            "ifood.com.br",
+            "rappi.com.br",
+            "netshoes.com.br",
+            "centauro.com.br",
+            "dafiti.com.br",
+            "madeiramadeira.com.br",
+            "leroymerlin.com.br",
+            "carrefour.com.br",
+            "extra.com.br",
+            "fastshop.com.br"
+    );
+
+    /**
+     * Marcas usadas para reconhecer variações visuais em domínios não
+     * oficiais, como "mercad0livre.com".
+     */
+    public static final List<String> MARCAS_PROTEGIDAS = List.of(
+            "mercadolivre",
+            "mercadopago",
+            "magazineluiza",
+            "casasbahia",
+            "madeiramadeira",
+            "leroymerlin",
+            "bancodobrasil",
+            "bancointer",
+            "btgpactual",
+            "bradesco",
+            "santander",
+            "nubank",
+            "c6bank",
+            "sicredi",
+            "sicoob",
+            "banrisul",
+            "banestes",
+            "bancopan",
+            "original",
+            "pagbank",
+            "picpay",
+            "infinitepay",
+            "recargapay",
+            "amazon",
+            "shopee",
+            "magalu",
+            "americanas",
+            "kabum",
+            "aliexpress",
+            "shein",
+            "temu",
+            "netshoes",
+            "centauro",
+            "dafiti",
+            "carrefour",
+            "fastshop"
     );
 
     public static final List<String> PEDIDOS_ACAO = List.of(
@@ -960,11 +1082,6 @@ public final class CatalogoGolpes {
                     TERMOS_SOLICITACAO_DADOS_SENSIVEIS,
                     4,
                     "A mensagem solicita imagens ou dados sensíveis de cartão, conta ou documento."
-            ),
-            new RegraGolpe(
-                    TERMOS_CARTAO_COMPROMETIDO,
-                    4,
-                    "A mensagem relata bloqueio ou uso suspeito de cartão que deve ser verificado."
             ),
             new RegraGolpe(
                     PEDIDOS_ACAO,

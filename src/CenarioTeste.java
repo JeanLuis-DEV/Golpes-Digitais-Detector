@@ -60,6 +60,13 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Alerta de cartão com orientação para canal oficial",
+                "Seu cartão foi bloqueado por segurança, entre em contato com o nosso banco pelo canal oficial do site.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
                 "Solicitação de dados sensíveis do cartão",
                 "Mande o CVV do cartão e uma foto do verso para validação.",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
@@ -90,6 +97,34 @@ public class CenarioTeste {
                 detector,
                 "Prêmio com link",
                 "Você ganhou 500 reais. Acesse https://premio-facil.com",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Link de comércio oficial",
+                "Confira o pedido em https://ofertas.mercadolivre.com.br/minha-conta",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Link desconhecido",
+                "Acesse https://loja-nova-exemplo.com/oferta",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        testar(
+                detector,
+                "Domínio que imita comércio conhecido",
+                "Acesse https://www.mercad0livre.com/oferta para acompanhar seu pedido.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Falso subdomínio de comércio oficial",
+                "Acesse https://mercadolivre.com.br.golpe.com/oferta",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 

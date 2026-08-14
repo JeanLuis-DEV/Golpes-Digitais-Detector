@@ -1,8 +1,10 @@
 package Modelos;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -32,6 +34,12 @@ public final class AnalisadorMensagem {
 
     private static final Pattern EMAIL = Pattern.compile(
             "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+    );
+
+    private static final Pattern DOMINIO = Pattern.compile(
+            "(?:https?://|www\\.)?"
+                    + "([a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                    + "(?:\\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+)"
     );
 
     private static final Pattern ARQUIVO_PERIGOSO = Pattern.compile(
@@ -98,6 +106,43 @@ public final class AnalisadorMensagem {
             for (String dominio : CatalogoGolpes.DOMINIOS_LINK) {
                 if (tokenLimpo.endsWith(dominio)
                         || tokenLimpo.contains(dominio + "/")) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Identifica endereços que não pertencem aos domínios oficiais
+     * cadastrados. Um domínio oficial pode ter subdomínios.
+     */
+    public boolean contemLinkDesconhecido(String textoNormalizado) {
+        for (String dominio : extrairDominios(textoNormalizado)) {
+            if (!dominioEhOficial(dominio)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Detecta domínios não oficiais que tentam parecer uma marca conhecida.
+     */
+    public boolean contemImitacaoDeDominioOficial(
+            String textoNormalizado
+    ) {
+        for (String dominio : extrairDominios(textoNormalizado)) {
+            if (dominioEhOficial(dominio)) {
+                continue;
+            }
+
+            for (String parte : dominio.split("\\.")) {
+                String parteSemHifen = parte.replace("-", "");
+
+                if (pareceMarcaProtegida(parteSemHifen)) {
                     return true;
                 }
             }
@@ -236,6 +281,116 @@ public final class AnalisadorMensagem {
         );
 
         return padrao.matcher(texto).find();
+    }
+
+    private List<String> extrairDominios(String textoNormalizado) {
+        List<String> dominios = new ArrayList<>();
+
+        for (String token : textoNormalizado.split("\\s+")) {
+            String tokenLimpo = removerPontuacaoExterna(token);
+
+            if (EMAIL.matcher(tokenLimpo).matches()) {
+                continue;
+            }
+
+            if (!tokenContemDominioDeLink(tokenLimpo)) {
+                continue;
+            }
+
+            Matcher correspondencia = DOMINIO.matcher(tokenLimpo);
+
+            while (correspondencia.find()) {
+                dominios.add(correspondencia.group(1));
+            }
+        }
+
+        return dominios;
+    }
+
+    private boolean tokenContemDominioDeLink(String token) {
+        if (token.startsWith("http://")
+                || token.startsWith("https://")
+                || token.startsWith("www.")) {
+            return true;
+        }
+
+        for (String dominio : CatalogoGolpes.DOMINIOS_LINK) {
+            if (token.endsWith(dominio)
+                    || token.contains(dominio + "/")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dominioEhOficial(String dominio) {
+        for (String dominioOficial : CatalogoGolpes.DOMINIOS_OFICIAIS) {
+            if (dominio.equals(dominioOficial)
+                    || dominio.endsWith("." + dominioOficial)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean pareceMarcaProtegida(String dominio) {
+        for (String marca : CatalogoGolpes.MARCAS_PROTEGIDAS) {
+            if (dominio.contains(marca)
+                    || distanciaEntre(dominio, marca)
+                    <= limiteDeDiferencas(marca)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private int limiteDeDiferencas(String marca) {
+        return marca.length() >= 8 ? 2 : 1;
+    }
+
+    /**
+     * Calcula quantas substituições, inclusões ou remoções são necessárias
+     * para transformar uma palavra na outra.
+     */
+    private int distanciaEntre(String primeiraPalavra, String segundaPalavra) {
+        int[] anterior = new int[segundaPalavra.length() + 1];
+        int[] atual = new int[segundaPalavra.length() + 1];
+
+        for (int indice = 0; indice <= segundaPalavra.length(); indice++) {
+            anterior[indice] = indice;
+        }
+
+        for (int indicePrimeira = 1;
+             indicePrimeira <= primeiraPalavra.length();
+             indicePrimeira++) {
+            atual[0] = indicePrimeira;
+
+            for (int indiceSegunda = 1;
+                 indiceSegunda <= segundaPalavra.length();
+                 indiceSegunda++) {
+                int custo = primeiraPalavra.charAt(indicePrimeira - 1)
+                        == segundaPalavra.charAt(indiceSegunda - 1)
+                        ? 0
+                        : 1;
+
+                atual[indiceSegunda] = Math.min(
+                        Math.min(
+                                atual[indiceSegunda - 1] + 1,
+                                anterior[indiceSegunda] + 1
+                        ),
+                        anterior[indiceSegunda - 1] + custo
+                );
+            }
+
+            int[] temporario = anterior;
+            anterior = atual;
+            atual = temporario;
+        }
+
+        return anterior[segundaPalavra.length()];
     }
 
     private String removerPontuacaoExterna(String token) {

@@ -85,6 +85,16 @@ public final class DetectorGolpes {
         boolean contemLink =
                 analisador.contemLink(textoNormalizado);
 
+        boolean contemLinkDesconhecido =
+                analisador.contemLinkDesconhecido(
+                        textoNormalizado
+                );
+
+        boolean contemImitacaoDeDominioOficial =
+                analisador.contemImitacaoDeDominioOficial(
+                        textoNormalizado
+                );
+
         boolean transferenciaSuspeita =
                 analisador.contemTransferenciaSuspeita(
                         textoNormalizado
@@ -118,10 +128,36 @@ public final class DetectorGolpes {
                         CatalogoGolpes.TERMOS_PROMESSA_FINANCEIRA
                 );
 
+        boolean cartaoComprometido =
+                analisador.contemAlgumTermo(
+                        textoNormalizado,
+                        CatalogoGolpes.TERMOS_CARTAO_COMPROMETIDO
+                );
+
+        boolean orientaCanalOficial =
+                analisador.contemAlgumTermo(
+                        textoNormalizado,
+                        CatalogoGolpes.TERMOS_CANAL_OFICIAL
+                );
+
         pontuacao += adicionarDeteccao(
                 contemLink,
                 3,
                 "A mensagem contém um link.",
+                motivos
+        );
+
+        pontuacao += adicionarDeteccao(
+                contemLinkDesconhecido,
+                1,
+                "O link usa um domínio que não consta na lista de canais oficiais cadastrados.",
+                motivos
+        );
+
+        pontuacao += adicionarDeteccao(
+                contemImitacaoDeDominioOficial,
+                4,
+                "O link parece imitar o domínio de uma instituição ou comércio conhecido.",
                 motivos
         );
 
@@ -145,6 +181,13 @@ public final class DetectorGolpes {
                 ),
                 7,
                 "A mensagem contém um arquivo que pode executar programas maliciosos.",
+                motivos
+        );
+
+        pontuacao += adicionarDeteccao(
+                cartaoComprometido && !orientaCanalOficial,
+                4,
+                "A mensagem relata bloqueio ou uso suspeito de cartão que deve ser verificado.",
                 motivos
         );
 
