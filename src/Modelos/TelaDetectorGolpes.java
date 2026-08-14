@@ -5,8 +5,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public final class TelaDetectorGolpes extends JFrame {
+    private static final long serialVersionUID = 1L;
 
-    private final DetectorGolpes detector = new DetectorGolpes();
+    private final transient DetectorGolpes detector = new DetectorGolpes();
 
     private final JTextArea campoMensagem = new JTextArea();
     private final JLabel textoClassificacao = new JLabel(
