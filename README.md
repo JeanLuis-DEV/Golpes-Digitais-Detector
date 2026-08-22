@@ -16,6 +16,7 @@ Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de g
 - Identificação de sinais como:
   - urgência, pressão temporal e pedidos de confirmação imediata;
   - links, domínios e arquivos potencialmente perigosos;
+  - canais oficiais do Governo Federal sob `gov.br` e tentativas de imitação desse domínio;
   - solicitação de senhas, códigos, documentos, dados bancários e imagens de cartão;
   - cartão bloqueado, uso não reconhecido, clonagem e tentativas de fraude;
   - pedidos de PIX, transferências, taxas antecipadas e pagamentos para terceiros;
@@ -30,8 +31,10 @@ Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de g
 3. A análise estrutural combina ações solicitadas, dados sensíveis, pagamentos, pretextos, ameaças e contexto técnico, incluindo flexões verbais.
 4. Relatos sobre uma situação suspeita são diferenciados de ordens diretas para reduzir falsos positivos e evitar a soma duplicada do mesmo sinal.
 5. Contextos comerciais explícitos, como emissão de nota fiscal, evitam que termos genéricos como `valor` e `cadastro` sejam tratados isoladamente como fraude.
-6. Regras simples e compostas atribuem pontos para cada evidência encontrada.
-7. A soma é convertida em uma classificação de risco:
+6. Solicitações coerentes com admissão profissional permanecem como alerta moderado, enquanto cobranças associadas à vaga continuam sendo tratadas como alto risco.
+7. Palavras ambíguas são avaliadas em conjunto: `canal seguro` não é confundido com cobrança de seguro financeiro.
+8. Regras simples e compostas atribuem pontos para cada evidência encontrada.
+9. A soma é convertida em uma classificação de risco:
 
 | Pontuação | Classificação |
 | --- | --- |

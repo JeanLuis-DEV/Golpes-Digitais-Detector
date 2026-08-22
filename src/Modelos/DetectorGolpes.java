@@ -235,6 +235,16 @@ public final class DetectorGolpes {
                         CatalogoGolpes.TERMOS_CONTEXTO_COMERCIAL_EXPLICITO
                 );
 
+        boolean possuiContextoDeAdmissao =
+                analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_ADMISSAO_FORMAL
+                )
+                        && analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_LOGISTICA_ADMISSAO
+                );
+
         boolean possuiPromessaIrreal =
                 analisador.contemAlgumTermo(
                         textoContextual,
@@ -342,9 +352,18 @@ public final class DetectorGolpes {
                         && possuiDadoSensivel;
 
         pontuacao += adicionarDeteccao(
-                solicitacaoEstruturalDeDados,
+                solicitacaoEstruturalDeDados
+                        && !possuiContextoDeAdmissao,
                 7,
                 "A mensagem combina uma ordem ou solicitação com dados sensíveis.",
+                motivos
+        );
+
+        pontuacao += adicionarDeteccao(
+                solicitacaoEstruturalDeDados
+                        && possuiContextoDeAdmissao,
+                4,
+                "A mensagem solicita documentos em contexto de admissão; confirme diretamente com o RH da empresa.",
                 motivos
         );
 

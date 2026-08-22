@@ -452,6 +452,7 @@ public final class CatalogoGolpes {
      * exemplo, "ofertas.mercadolivre.com.br".
      */
     public static final List<String> DOMINIOS_OFICIAIS = List.of(
+            "gov.br",
             "bb.com.br",
             "itau.com.br",
             "bradesco.com.br",
@@ -509,6 +510,7 @@ public final class CatalogoGolpes {
      * oficiais, como "mercad0livre.com".
      */
     public static final List<String> MARCAS_PROTEGIDAS = List.of(
+            "gov",
             "mercadolivre",
             "mercadopago",
             "magazineluiza",
@@ -1636,11 +1638,15 @@ public final class CatalogoGolpes {
             "criptomoedas",
             "usdt",
             "carteira digital",
+            "carteira de investimentos",
             "qr code",
             "caucao",
             "comissao",
             "comissoes",
-            "seguro",
+            "seguro da transacao",
+            "seguro de envio",
+            "seguro da reserva",
+            "seguro obrigatorio",
             "imposto",
             "honorarios",
             "recarga",
@@ -1650,7 +1656,6 @@ public final class CatalogoGolpes {
             "valor",
             "valores",
             "fundo",
-            "carteira",
             "selo digital",
             "cartoes",
             "qr",
@@ -1765,6 +1770,24 @@ public final class CatalogoGolpes {
             "emissao da nota",
             "faturamento",
             "recibo do pagamento"
+    );
+
+    public static final List<String> TERMOS_ADMISSAO_FORMAL = List.of(
+            "carteira de trabalho",
+            "assinatura da carteira",
+            "inicio das atividades",
+            "processo de admissao",
+            "registro do funcionario"
+    );
+
+    public static final List<String> TERMOS_LOGISTICA_ADMISSAO = List.of(
+            "uniforme",
+            "cracha",
+            "foto 3x4",
+            "tamanho de camisa",
+            "tamanho de calca",
+            "tamanho de calcado",
+            "botina"
     );
 
     public static final List<String> SINAIS_PROMESSA_IRREAL = List.of(

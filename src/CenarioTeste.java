@@ -151,6 +151,34 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Documentos solicitados para admissão profissional",
+                "Sr. Roberto, comparecer na empresa Açaí Distribuição para o início das atividades na segunda-feira. Preciso que envie todos os documentos para assinatura da sua carteira de trabalho e separação do uniforme. Foto 3x4 para o crachá, frente e verso da carteira de trabalho e tamanho de camisa, calça e botina.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        testar(
+                detector,
+                "Admissão usada como pretexto para pagamento",
+                "Para assinar sua carteira de trabalho e separar o uniforme, envie os documentos e pague agora a taxa de cadastro.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Admissão com identificação e alegação de canal seguro",
+                "Boa tarde, sr. Marcelo, comparecer na empresa Atacadista onde o senhor fez a entrevista para o início das atividades. Envie os documentos para assinatura da carteira de trabalho e separação do uniforme: foto 3x4, frente e verso da carteira de trabalho e tamanhos. Qualquer dúvida entre em contato por esse canal seguro e oficial. Atenciosamente, Marcia - RH. Empresa: Atacadista LTDA, CNPJ: 01.387.466/0001-87.",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        testar(
+                detector,
+                "Seguro financeiro cobrado antecipadamente",
+                "Pague o seguro da transação para receber o saldo do marketplace.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
                 "Descrição técnica de número de cartão",
                 "O campo card number possui dezesseis dígitos no formulário de teste.",
                 "POSSIVELMENTE LEGÍTIMO"
@@ -294,6 +322,27 @@ public class CenarioTeste {
                 "Link de comércio oficial",
                 "Confira o pedido em https://ofertas.mercadolivre.com.br/minha-conta",
                 "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Benefício deferido com canal oficial do governo",
+                "Fala Pedro, sua aposentadoria foi deferida! Acesse o canal oficial do governo https://www.gov.br",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Subdomínio oficial do governo",
+                "Consulte as informações em https://servicos.gov.br",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Falso subdomínio do governo",
+                "Acesse https://gov.br.golpe.com para consultar sua aposentadoria.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 
         testar(
