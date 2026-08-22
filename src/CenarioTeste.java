@@ -53,6 +53,41 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Falso advogado solicitando dados bancários",
+                "Aqui é teu advogado, eu preciso que tu passe seus dados do banco para conseguir acessar ele.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Solicitação direta de credenciais bancárias",
+                "Informe seu login e senha para acessar a conta.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Solicitação de código de autenticação",
+                "Passe o código que chegou para concluir o atendimento.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Orientação para não compartilhar dados bancários",
+                "Nunca passe seus dados do banco por mensagem.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Menção legítima a advogado",
+                "Meu advogado enviou os dados do processo para análise.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
                 "Cartão bloqueado com solicitação de imagem",
                 "Seu cartão foi bloqueado, envie a foto frente e verso do cartão.",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
@@ -76,6 +111,13 @@ public class CenarioTeste {
                 detector,
                 "Acesso remoto",
                 "Instale AnyDesk e compartilhe sua tela com o suporte.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Acesso remoto por QuickSupport",
+                "Instale QuickSupport e informe o código de acesso remoto.",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
         );
 

@@ -24,8 +24,10 @@ Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de g
 
 1. A mensagem é validada e normalizada.
 2. O detector procura palavras, frases, links, domínios, valores monetários e extensões de arquivo.
-3. Regras simples e compostas atribuem pontos para cada sinal encontrado.
-4. A soma é convertida em uma classificação de risco:
+3. A análise estrutural combina ações solicitadas, dados sensíveis, pagamentos, pretextos, ameaças e contexto técnico, incluindo flexões verbais.
+4. Relatos sobre uma situação suspeita são diferenciados de ordens diretas para reduzir falsos positivos e evitar a soma duplicada do mesmo sinal.
+5. Regras simples e compostas atribuem pontos para cada evidência encontrada.
+6. A soma é convertida em uma classificação de risco:
 
 | Pontuação | Classificação |
 | --- | --- |
@@ -96,9 +98,11 @@ Após compilar o projeto, execute:
 
 ```powershell
 java -cp out CenarioTeste
+java -cp out CenarioAuditoria100Golpes
+java -cp out CenarioAuditoria200NovasMensagens
 ```
 
-Os cenários cobrem mensagens comuns, links, arquivos perigosos, acesso remoto, transferências, pedidos de dados sensíveis e bloqueio de cartão.
+Os cenários cobrem mensagens comuns, links, arquivos perigosos, acesso remoto, transferências, pedidos de dados sensíveis e bloqueio de cartão. As auditorias adicionais validam 200 golpes e 100 mensagens suspeitas, com conjuntos independentes de frases.
 
 ## Limitações e uso responsável
 

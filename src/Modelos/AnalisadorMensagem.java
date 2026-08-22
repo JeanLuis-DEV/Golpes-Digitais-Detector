@@ -115,6 +115,86 @@ public final class AnalisadorMensagem {
     }
 
     /**
+     * Remove endereços da cópia usada nas regras de contexto. Isso impede
+     * que palavras existentes apenas no domínio ou no caminho da URL sejam
+     * interpretadas como pedidos de senha, conta ou pagamento.
+     */
+    public String removerLinks(String textoNormalizado) {
+        StringBuilder textoSemLinks = new StringBuilder();
+
+        for (String token : textoNormalizado.split("\\s+")) {
+            String tokenLimpo = removerPontuacaoExterna(token);
+
+            if (!EMAIL.matcher(tokenLimpo).matches()
+                    && tokenContemDominioDeLink(tokenLimpo)) {
+                textoSemLinks.append(' ');
+                continue;
+            }
+
+            textoSemLinks.append(token).append(' ');
+        }
+
+        return textoSemLinks.toString().trim();
+    }
+
+    /**
+     * Procura termos de solicitação, mas ignora orientações explícitas
+     * como "não passe sua senha" ou "nunca informe o código".
+     */
+    public boolean contemAlgumTermoSemNegacao(
+            String textoNormalizado,
+            List<String> termos
+    ) {
+        for (String termo : termos) {
+            Pattern padrao = criarPadraoTermo(termo);
+            Matcher correspondencia = padrao.matcher(textoNormalizado);
+
+            while (correspondencia.find()) {
+                String textoAnterior = textoNormalizado.substring(
+                        Math.max(0, correspondencia.start() - 15),
+                        correspondencia.start()
+                );
+
+                if (!textoAnterior.matches(
+                        ".*(?:nao|nunca|jamais)\\s+$"
+                )) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Reconhece flexões verbais por radical, como "informar", "informou"
+     * e "informe", sem cadastrar uma frase completa para cada variação.
+     */
+    public boolean contemRadicalSemNegacao(
+            String textoNormalizado,
+            List<String> radicais
+    ) {
+        String[] palavras = textoNormalizado.split(
+                "[^\\p{L}\\p{N}]+"
+        );
+
+        for (int indice = 0; indice < palavras.length; indice++) {
+            if (palavras[indice].isEmpty()
+                    || estaSobNegacao(palavras, indice)) {
+                continue;
+            }
+
+            for (String radical : radicais) {
+                if (palavras[indice].startsWith(radical)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Identifica endereços que não pertencem aos domínios oficiais
      * cadastrados. Um domínio oficial pode ter subdomínios.
      */
@@ -268,19 +348,35 @@ public final class AnalisadorMensagem {
      * diretamente.
      */
     private boolean contemTermo(String texto, String termo) {
+        return criarPadraoTermo(termo).matcher(texto).find();
+    }
+
+    private Pattern criarPadraoTermo(String termo) {
         if (termo.contains(":")
                 || termo.contains("/")
                 || termo.contains(".")) {
-            return texto.contains(termo);
+            return Pattern.compile(Pattern.quote(termo));
         }
 
-        Pattern padrao = Pattern.compile(
+        return Pattern.compile(
                 "(?<![\\p{L}\\p{N}])"
                         + Pattern.quote(termo)
                         + "(?![\\p{L}\\p{N}])"
         );
+    }
 
-        return padrao.matcher(texto).find();
+    private boolean estaSobNegacao(String[] palavras, int indice) {
+        int inicio = Math.max(0, indice - 2);
+
+        for (int anterior = inicio; anterior < indice; anterior++) {
+            if ("nao".equals(palavras[anterior])
+                    || "nunca".equals(palavras[anterior])
+                    || "jamais".equals(palavras[anterior])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private List<String> extrairDominios(String textoNormalizado) {
@@ -395,7 +491,7 @@ public final class AnalisadorMensagem {
 
     private String removerPontuacaoExterna(String token) {
         return token.replaceAll(
-                "^[('\"\\[]+|[),;!?'\"\\]]+$",
+                "^[('\"\\[]+|[.),:;!?'\"\\]]+$",
                 ""
         );
     }
