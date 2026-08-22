@@ -74,6 +74,153 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Golpe híbrido em português e inglês",
+                "Olá, sou o Gerente, passe o number do seu card e o security code",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Golpe híbrido com erros ortográficos",
+                "Sou o dono do banco, precido do card number para ferificar aqui seu saldo",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Falsa gerente solicitando cartão com diminutivos",
+                "Olá João, aqui é sua gerente, manda uma fotinho frente e verso do cartãozinho para eu te ajudar",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Diminutivo de cartão em contexto legítimo",
+                "O cartãozinho de aniversário ficou bonito.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Pedido legítimo de fotografia",
+                "Manda uma fotinho do cachorro quando puder.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Falsa vaga solicitando imagens faciais",
+                "Oiie, tudo bem? tenho uma vaga de emprego para você, envie uma foto do seu rosto de frente e dos dois lados para eu te cadastrar aqui na entrevista",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Menção legítima a fotografia de rosto",
+                "A foto do rosto ficou boa para o álbum da família.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Pedido legítimo de fotografia sem dado facial",
+                "Envie uma foto da fachada para a entrevista sobre arquitetura.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Cadastro legítimo para emissão de nota fiscal",
+                "Oi, como você havia solicitado, estou te mandando o valor combinado, para eu gerar a nota fiscal, me manda seus dados pessoais para cadastro",
+                "SUSPEITO(VERIFIQUE A FONTE)"
+        );
+
+        testar(
+                detector,
+                "Nota fiscal legítima de valor combinado",
+                "A nota fiscal do valor combinado segue em anexo.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Nota fiscal usada como pretexto para cobrança",
+                "Para gerar a nota fiscal do cadastro, pague a taxa de liberação agora.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Descrição técnica de número de cartão",
+                "O campo card number possui dezesseis dígitos no formulário de teste.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Golpe em inglês com dados do cartão",
+                "I am the bank manager, send your card number and security code.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Golpe em espanhol com dados do cartão",
+                "Soy el gerente del banco, comparte el número de tu tarjeta y el código de seguridad.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Golpe em francês com dados do cartão",
+                "Je suis le conseiller bancaire, donnez votre numéro de carte et le code de sécurité.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Golpe híbrido com falso suporte",
+                "Informe o OTP para o support agent concluir a validação.",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
+                "Card como componente visual",
+                "Envie o card do componente para revisão visual.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Card em contexto de design",
+                "Share the card layout with the design team.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Orientação de segurança em inglês",
+                "Never share your password or security code with anyone.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Orientação de segurança em espanhol",
+                "Nunca compartas tu contraseña ni el código de seguridad.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Orientação de segurança em francês",
+                "Ne partagez jamais votre mot de passe ni votre code de sécurité.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
                 "Orientação para não compartilhar dados bancários",
                 "Nunca passe seus dados do banco por mensagem.",
                 "POSSIVELMENTE LEGÍTIMO"

@@ -163,11 +163,37 @@ public final class DetectorGolpes {
                         CatalogoGolpes.RADICAIS_SOLICITACAO
                 );
 
+        boolean possuiNumeroDeCartaoMultilingue =
+                analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_CARTAO_ESTRANGEIROS
+                )
+                        && analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_NUMERO_MULTILINGUES
+                );
+
+        boolean possuiImagemFacial =
+                analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_IMAGEM_PESSOAL
+                )
+                        && analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_ROSTO
+                );
+
         boolean possuiDadoSensivel =
                 analisador.contemAlgumTermo(
                         textoContextual,
                         CatalogoGolpes.ALVOS_DADOS_SENSIVEIS
-                );
+                )
+                        || analisador.contemRadical(
+                        textoContextual,
+                        CatalogoGolpes.RADICAIS_DADOS_SENSIVEIS
+                )
+                        || possuiImagemFacial
+                        || possuiNumeroDeCartaoMultilingue;
 
         boolean possuiAcaoFinanceiraDireta =
                 analisador.contemAlgumTermoSemNegacao(
@@ -201,6 +227,12 @@ public final class DetectorGolpes {
                 analisador.contemAlgumTermo(
                         textoContextual,
                         CatalogoGolpes.SINAIS_PRETEXTO_DE_GOLPE
+                );
+
+        boolean possuiContextoComercialExplicito =
+                analisador.contemAlgumTermo(
+                        textoContextual,
+                        CatalogoGolpes.TERMOS_CONTEXTO_COMERCIAL_EXPLICITO
                 );
 
         boolean possuiPromessaIrreal =
@@ -368,6 +400,7 @@ public final class DetectorGolpes {
 
         boolean pretextoFinanceiroDireto =
                 !mensagemRelataSituacao
+                        && !possuiContextoComercialExplicito
                         && possuiPretextoDeGolpe
                         && possuiAlvoFinanceiro;
 

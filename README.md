@@ -7,7 +7,10 @@ Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de g
 ## Funcionalidades
 
 - Interface gráfica desktop para colar, analisar e limpar mensagens.
-- Normalização de maiúsculas, minúsculas e acentos, reduzindo tentativas simples de ocultar palavras suspeitas.
+- Normalização de maiúsculas, minúsculas e acentos, com tolerância a erros ortográficos frequentes em solicitações suspeitas.
+- Detecção de pedidos de dados sensíveis em português, inglês, espanhol e francês, inclusive quando os idiomas são misturados na mesma mensagem.
+- Reconhecimento de diminutivos usados para disfarçar termos sensíveis, como `cartãozinho`.
+- Identificação estrutural de pedidos de fotos do rosto, selfies e dados de biometria facial.
 - Classificação em três níveis: `POSSIVELMENTE LEGÍTIMO`, `SUSPEITO` e `POSSIVELMENTE GOLPE`.
 - Pontuação transparente e lista dos motivos que levaram ao resultado.
 - Identificação de sinais como:
@@ -26,8 +29,9 @@ Aplicação desktop em Java para analisar mensagens e indicar sinais comuns de g
 2. O detector procura palavras, frases, links, domínios, valores monetários e extensões de arquivo.
 3. A análise estrutural combina ações solicitadas, dados sensíveis, pagamentos, pretextos, ameaças e contexto técnico, incluindo flexões verbais.
 4. Relatos sobre uma situação suspeita são diferenciados de ordens diretas para reduzir falsos positivos e evitar a soma duplicada do mesmo sinal.
-5. Regras simples e compostas atribuem pontos para cada evidência encontrada.
-6. A soma é convertida em uma classificação de risco:
+5. Contextos comerciais explícitos, como emissão de nota fiscal, evitam que termos genéricos como `valor` e `cadastro` sejam tratados isoladamente como fraude.
+6. Regras simples e compostas atribuem pontos para cada evidência encontrada.
+7. A soma é convertida em uma classificação de risco:
 
 | Pontuação | Classificação |
 | --- | --- |
@@ -102,7 +106,7 @@ java -cp out CenarioAuditoria100Golpes
 java -cp out CenarioAuditoria200NovasMensagens
 ```
 
-Os cenários cobrem mensagens comuns, links, arquivos perigosos, acesso remoto, transferências, pedidos de dados sensíveis e bloqueio de cartão. As auditorias adicionais validam 200 golpes e 100 mensagens suspeitas, com conjuntos independentes de frases.
+Os cenários cobrem mensagens comuns, links, arquivos perigosos, acesso remoto, transferências, pedidos multilíngues de dados sensíveis e bloqueio de cartão. As auditorias adicionais validam 200 golpes e 100 mensagens suspeitas, com conjuntos independentes de frases.
 
 ## Limitações e uso responsável
 

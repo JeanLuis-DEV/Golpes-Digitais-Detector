@@ -97,6 +97,7 @@ public final class CatalogoGolpes {
     public static final List<String> TERMOS_DADOS_PESSOAIS = List.of(
             "senha",
             "cpf",
+            "dados pessoais",
             "dados bancarios",
             "credenciais bancarias",
             "credenciais de acesso",
@@ -881,8 +882,16 @@ public final class CatalogoGolpes {
             "suporte tecnico",
             "suporte do banco",
             "gerente da conta",
+            "aqui e sua gerente",
+            "aqui e seu gerente",
+            "sou sua gerente",
+            "sou seu gerente",
             "atendimento bancario",
             "representante do banco",
+            "sou o dono do banco",
+            "dono do banco",
+            "sou o presidente do banco",
+            "presidente do banco",
             "somos do banco",
             "falo em nome do banco",
             "equipe do pix",
@@ -905,7 +914,19 @@ public final class CatalogoGolpes {
             "policia civil informa",
             "ministerio publico informa",
             "inss informa",
-            "serasa informa"
+            "serasa informa",
+            "sou o gerente",
+            "i am the manager",
+            "bank manager",
+            "bank agent",
+            "security team",
+            "support agent",
+            "soy el gerente",
+            "gerente del banco",
+            "soporte del banco",
+            "je suis le directeur",
+            "conseiller bancaire",
+            "support bancaire"
     );
 
     public static final List<String> TERMOS_TAXA_ANTECIPADA = List.of(
@@ -1369,7 +1390,29 @@ public final class CatalogoGolpes {
             "procure",
             "consulte",
             "verifique",
-            "confira"
+            "confira",
+            "send",
+            "give",
+            "share",
+            "provide",
+            "tell",
+            "enter",
+            "type",
+            "upload",
+            "forward",
+            "envia",
+            "enviame",
+            "comparte",
+            "dime",
+            "confirma",
+            "ingresa",
+            "escribe",
+            "manda",
+            "envoyez",
+            "partagez",
+            "donnez",
+            "confirmez",
+            "saisissez"
     );
 
     public static final List<String> RADICAIS_SOLICITACAO = List.of(
@@ -1402,7 +1445,12 @@ public final class CatalogoGolpes {
             "procur",
             "consult",
             "verific",
-            "confer"
+            "confer",
+            "precid",
+            "prescis",
+            "presis",
+            "preciz",
+            "ferific"
     );
 
     public static final List<String> ALVOS_DADOS_SENSIVEIS = List.of(
@@ -1417,6 +1465,31 @@ public final class CatalogoGolpes {
             "dados do cartao",
             "dados bancarios",
             "cartao",
+            "card number",
+            "credit card",
+            "debit card",
+            "bank card",
+            "bank details",
+            "account number",
+            "personal information",
+            "personal data",
+            "id number",
+            "date of birth",
+            "numero de tarjeta",
+            "tarjeta de credito",
+            "tarjeta de debito",
+            "datos bancarios",
+            "numero de cuenta",
+            "informacion personal",
+            "documento de identidad",
+            "fecha de nacimiento",
+            "numero de carte",
+            "carte bancaire",
+            "carte de credit",
+            "coordonnees bancaires",
+            "numero de compte",
+            "donnees personnelles",
+            "date de naissance",
             "agencia",
             "conta",
             "cpf",
@@ -1442,7 +1515,53 @@ public final class CatalogoGolpes {
             "cvv",
             "numeros do verso",
             "chave de recuperacao",
-            "pergunta secreta"
+            "pergunta secreta",
+            "security code",
+            "security number",
+            "password",
+            "passcode",
+            "otp",
+            "one time password",
+            "verification code",
+            "authentication code",
+            "access code",
+            "codigo de seguridad",
+            "contrasena",
+            "clave",
+            "codigo de verificacion",
+            "codigo de autenticacion",
+            "code de securite",
+            "mot de passe",
+            "code de verification",
+            "code d'authentification"
+    );
+
+    public static final List<String> TERMOS_CARTAO_ESTRANGEIROS = List.of(
+            "card",
+            "tarjeta",
+            "carte"
+    );
+
+    public static final List<String> TERMOS_NUMERO_MULTILINGUES = List.of(
+            "numero",
+            "number"
+    );
+
+    public static final List<String> RADICAIS_DADOS_SENSIVEIS = List.of(
+            "cartao"
+    );
+
+    public static final List<String> TERMOS_IMAGEM_PESSOAL = List.of(
+            "foto",
+            "fotografia",
+            "imagem",
+            "selfie"
+    );
+
+    public static final List<String> TERMOS_ROSTO = List.of(
+            "rosto",
+            "biometria facial",
+            "reconhecimento facial"
     );
 
     public static final List<String> VERBOS_ACAO_FINANCEIRA = List.of(
@@ -1635,6 +1754,17 @@ public final class CatalogoGolpes {
             "cartorio",
             "militar",
             "comprovante"
+    );
+
+    public static final List<String> TERMOS_CONTEXTO_COMERCIAL_EXPLICITO = List.of(
+            "nota fiscal",
+            "nf-e",
+            "nfe",
+            "emitir nota",
+            "gerar a nota",
+            "emissao da nota",
+            "faturamento",
+            "recibo do pagamento"
     );
 
     public static final List<String> SINAIS_PROMESSA_IRREAL = List.of(

@@ -150,13 +150,21 @@ public final class AnalisadorMensagem {
             Matcher correspondencia = padrao.matcher(textoNormalizado);
 
             while (correspondencia.find()) {
+                if (ehFalsoPositivoDeTermo(
+                        textoNormalizado,
+                        correspondencia.start(),
+                        termo
+                )) {
+                    continue;
+                }
+
                 String textoAnterior = textoNormalizado.substring(
                         Math.max(0, correspondencia.start() - 15),
                         correspondencia.start()
                 );
 
                 if (!textoAnterior.matches(
-                        ".*(?:nao|nunca|jamais)\\s+$"
+                        ".*(?:nao|nunca|jamais|no|not|never|don't|dont|do not|jamas|ne|pas)\\s+$"
                 )) {
                     return true;
                 }
@@ -164,6 +172,23 @@ public final class AnalisadorMensagem {
         }
 
         return false;
+    }
+
+    private boolean ehFalsoPositivoDeTermo(
+            String texto,
+            int inicioTermo,
+            String termo
+    ) {
+        if (!"passe".equals(termo)) {
+            return false;
+        }
+
+        String textoAnterior = texto.substring(
+                Math.max(0, inicioTermo - 7),
+                inicioTermo
+        );
+
+        return textoAnterior.endsWith("mot de ");
     }
 
     /**
@@ -185,13 +210,63 @@ public final class AnalisadorMensagem {
             }
 
             for (String radical : radicais) {
-                if (palavras[indice].startsWith(radical)) {
+                if (palavras[indice].startsWith(radical)
+                        && !ehFalsoPositivoDeRadical(
+                        palavras,
+                        indice,
+                        radical
+                )) {
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    /**
+     * Reconhece palavras derivadas de um termo sensível, inclusive
+     * diminutivos usados para disfarçá-lo, como "cartãozinho".
+     */
+    public boolean contemRadical(
+            String textoNormalizado,
+            List<String> radicais
+    ) {
+        String[] palavras = textoNormalizado.split(
+                "[^\\p{L}\\p{N}]+"
+        );
+
+        for (String palavra : palavras) {
+            for (String radical : radicais) {
+                if (palavra.startsWith(radical)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean ehFalsoPositivoDeRadical(
+            String[] palavras,
+            int indice,
+            String radical
+    ) {
+        if (!"pass".equals(radical)) {
+            return false;
+        }
+
+        String palavra = palavras[indice];
+
+        if (palavra.startsWith("password")
+                || palavra.startsWith("passcode")) {
+            return true;
+        }
+
+        return "passe".equals(palavra)
+                && indice >= 2
+                && "mot".equals(palavras[indice - 2])
+                && "de".equals(palavras[indice - 1]);
     }
 
     /**
@@ -371,7 +446,14 @@ public final class AnalisadorMensagem {
         for (int anterior = inicio; anterior < indice; anterior++) {
             if ("nao".equals(palavras[anterior])
                     || "nunca".equals(palavras[anterior])
-                    || "jamais".equals(palavras[anterior])) {
+                    || "jamais".equals(palavras[anterior])
+                    || "no".equals(palavras[anterior])
+                    || "not".equals(palavras[anterior])
+                    || "never".equals(palavras[anterior])
+                    || "dont".equals(palavras[anterior])
+                    || "jamas".equals(palavras[anterior])
+                    || "ne".equals(palavras[anterior])
+                    || "pas".equals(palavras[anterior])) {
                 return true;
             }
         }
