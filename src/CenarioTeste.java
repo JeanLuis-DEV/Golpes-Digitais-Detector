@@ -60,6 +60,13 @@ public class CenarioTeste {
 
         testar(
                 detector,
+                "Falso advogado pede dados do banco após suposto pagamento",
+                "olá, aqui é o teu advogado, conseguir que eles pagassem ao que te deviam, por favor me manda os dados do teu banco",
+                "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
+        );
+
+        testar(
+                detector,
                 "Solicitação direta de credenciais bancárias",
                 "Informe seu login e senha para acessar a conta.",
                 "POSSIVELMENTE GOLPE(TENHA MUITO CUIDADO!)"
@@ -251,6 +258,13 @@ public class CenarioTeste {
                 detector,
                 "Orientação para não compartilhar dados bancários",
                 "Nunca passe seus dados do banco por mensagem.",
+                "POSSIVELMENTE LEGÍTIMO"
+        );
+
+        testar(
+                detector,
+                "Orientação para não mandar dados do próprio banco",
+                "Nunca manda os dados do teu banco por mensagem.",
                 "POSSIVELMENTE LEGÍTIMO"
         );
 
